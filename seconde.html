@@ -28,19 +28,16 @@
     h1 { font-size: 1.6rem; }
     h2 { font-size: 1.3rem; }
     }
-    .retour-accueil {
-    margin: 0.7rem 0;
-    }
-
     .btn-retour {
     display: inline-block;
-    padding: 0.3rem 0.5rem;
+    padding: 0.35rem 0.6rem;
     border: 1px solid rgba(255,255,255,0.25);
-    border-radius: 8px;
+    border-radius: 8px; /* arrondi complet */
     color: white;
     text-decoration: none;
     font-weight: 600;
     font-family: 'Computer Modern Serif', serif;
+    background-color: transparent;
     transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
     }
 
@@ -49,6 +46,7 @@
     background-color: rgba(255,255,255,0.08);
     transform: translateY(-1px);
     }
+
     /* ---- Mise en page de la page Seconde ---- */
     .container {
     max-width: 1200px;
@@ -163,12 +161,13 @@
 <body>
 <main class="container" aria-labelledby="titre-seconde">
 <h1 id="titre-seconde" style="text-align:center; margin: 0 0 1rem 0;">
-    Seconde — Mathématiques & SNT
+    Seconde
 </h1>
 
-<nav class="retour-accueil" style="text-align: center;">
-    <a href="index.html" class="btn-retour">← Accueil</a>
+<nav class="retour-accueil" style="text-align:center; margin:1rem 0 1.2rem;">
+  <a href="index.html" class="btn-retour">Accueil</a>
 </nav>
+
 
 <div class="panneaux">
     <!--  -->

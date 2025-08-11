@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Computer+Modern+Serif&display=swap" rel="stylesheet">
 
 <style>
+  html {font-size: 18px;}
   body {
     margin: 2em;
     background-color: black;
@@ -21,34 +22,54 @@
     font-weight: bold;
     text-shadow: 5px 5px 15px rgba(0,0,0,0.945);
   }
-  .retour-accueil {
-    margin-top: 2rem;
+  .btn-groupe {
+    display: inline-flex;
+    border-radius: 8px; /* arrondi global */
+    overflow: hidden;   /* pour que la séparation soit nette */
   }
+
   .btn-retour {
     display: inline-block;
-    padding: 0.5rem 1rem;
+    padding: 0.35rem 0.6rem;
     border: 1px solid rgba(255,255,255,0.25);
-    border-radius: 8px;
     color: white;
     text-decoration: none;
     font-weight: 600;
+    font-family: 'Computer Modern Serif', serif;
+    background-color: transparent;
     transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
   }
+
+  /* Pas d'arrondi interne, juste aux extrémités */
+  .btn-left {
+    border-radius: 8px 0 0 8px;
+  }
+  .btn-right {
+    border-radius: 0 8px 8px 0;
+    border-left: none; /* enlève la double bordure au milieu */
+  }
+
+  /* Effet hover */
   .btn-retour:hover {
     border-color: rgba(255,255,255,0.5);
     background-color: rgba(255,255,255,0.08);
     transform: translateY(-1px);
   }
+
 </style>
 </head>
 
 <body>
 
-  <h1>Terminale Spé</h1>
+<h1>Terminale Spé</h1>
 
-  <div class="retour-accueil">
-    <a href="terminale.html" class="btn-retour">← Filières de Term</a>
+<nav class="retour-accueil" style="text-align:center;">
+  <div class="btn-groupe">
+    <a href="index.html" class="btn-retour btn-left">Accueil</a>
+    <a href="terminale.html" class="btn-retour btn-right">Filières de Term<sup style="font-size: 0.7em;">e</sup></a>
   </div>
+</nav>
+
 
   <p>Pas de contenu disponible cette année (encore jamais fait terminale spé, mais ça viendra tkt).</p>
 

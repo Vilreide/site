@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Première — Choix de filière</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Police LaTeX -->
+  <link href="https://fonts.googleapis.com/css2?family=Computer+Modern+Serif&display=swap" rel="stylesheet">
+
+<style>
+    body {
+        margin: 2em;
+        background-color: black;
+        color: white;
+        font-family: 'Computer Modern Serif', serif;
+        line-height: 1.6;
+    }
+    h1, h2 {
+        font-family: 'Computer Modern Serif', serif;
+        font-weight: bold;
+        text-align: center;
+    }
+    .retour-accueil {
+    margin: 0.7rem 0;
+    }
+
+    .btn-retour {
+    display: inline-block;
+    padding: 0.3rem 0.5rem;
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 8px;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-family: 'Computer Modern Serif', serif;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .btn-retour:hover {
+    border-color: rgba(255,255,255,0.5);
+    background-color: rgba(255,255,255,0.08);
+    transform: translateY(-1px);
+    }
+
+    .menu-niveaux {
+        display: flex;
+        gap: 0rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin: 1rem auto;
+    }
+
+    .bloc {
+        display: block;
+        position: relative;
+        overflow: hidden;
+        width: 280px;
+        height: 160px;
+        margin: 0.3rem auto;
+        border-radius: 10px;
+        text-decoration: none;
+        color: white;
+        font-size: 1.3rem;
+        font-weight: bold;
+        transition: transform 0.2s ease;
+    }
+    .bloc:hover { transform: translateY(-3px); }
+
+    .bloc video, .bloc img {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+        transition: filter 0.2s ease;
+    }
+
+    .bloc h2 {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        margin: 0;
+        line-height: 160px;
+        text-shadow: 5px 5px 15px rgba(0,0,0,0.945);
+    }
+
+    /* Spécialité — nuance bleu clair */
+    .bloc-spe { border: 2px solid #5cbcff; }
+    .bloc-spe:hover { color: #5cbcff; }
+    .bloc-spe:hover h2 { color: #5cbcff; }
+    .bloc-spe:hover video, .bloc-spe:hover img { filter: brightness(0.6); }
+
+    /* STMG — nuance bleu-vert */
+    .bloc-stmg { border: 2px solid #4fd1c5; }
+    .bloc-stmg:hover { color: #4fd1c5; }
+    .bloc-stmg:hover h2 { color: #4fd1c5; }
+    .bloc-stmg:hover video, .bloc-stmg:hover img { filter: brightness(0.6); }
+
+    /* Responsive */
+    @media (max-width: 700px) {
+        .menu-niveaux {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        }
+        .bloc {
+        width: 90%;
+        max-width: 350px;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Première</h1>
+    </header>
+    <nav class="retour-accueil">
+        <a href="index.html" class="btn-retour">← Retour à l’accueil</a>
+    </nav>
+
+    <nav class="menu-niveaux">
+    <!-- Bloc Première STMG -->
+    <a href="premiere-stmg.html" class="bloc bloc-spe">
+        <video src="media/divers/cube.mp4" autoplay muted loop playsinline></video>
+        <h2>STMG</h2>
+    </a>
+    
+    <!-- Bloc Première Spécialité -->
+    <a href="premiere-spe.html" class="bloc bloc-spe">
+        <video src="media/divers/cube.mp4" autoplay muted loop playsinline></video>
+        <h2>Spécialité</h2>
+    </a>
+    </nav>
+
+<!--  -->
+<!-- Scripts -->
+ <!--  -->
+<script>
+(function () {
+  function resumeAll(fromBFCache) {
+    document.querySelectorAll('video[autoplay]').forEach(v => {
+      v.muted = true;      // requis pour l’autoplay
+      v.playsInline = true;
+
+      const targetTime = fromBFCache && v.dataset.t ? parseFloat(v.dataset.t) : null;
+      const tryPlay = () => v.play().catch(() => {});
+
+      if (v.readyState < 2) { // pas encore de données décodées
+        if (targetTime != null) {
+          v.addEventListener('loadedmetadata', () => {
+            try { v.currentTime = targetTime; } catch {}
+          }, { once: true });
+        }
+        v.addEventListener('loadeddata', tryPlay, { once: true });
+        v.load(); // “réveille” le décodage sur Safari après bfcache
+      } else {
+        if (targetTime != null) try { v.currentTime = targetTime; } catch {}
+        if (v.paused) tryPlay();
+      }
+    });
+  }
+
+  // Au moment de quitter la page vers l’historique (bfcache)
+  window.addEventListener('pagehide', e => {
+    if (e.persisted) {
+      document.querySelectorAll('video[autoplay]').forEach(v => {
+        v.dataset.t = v.currentTime || 0;
+      });
+    }
+  });
+
+  // Au retour depuis l’historique
+  window.addEventListener('pageshow', e => {
+    resumeAll(e.persisted === true);
+  });
+
+  // Filet de sécurité quand l’onglet redevient visible
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) resumeAll(false);
+  });
+})();
+</script>
+</body>
+</html>

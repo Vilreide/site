@@ -2,141 +2,132 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<title>1ère spé (M.Petit)</title>
+<title>1e Spé (M.Petit)</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- Polices -->
 <link href="https://fonts.googleapis.com/css2?family=Computer+Modern+Serif&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
 
-
 <style>
-html {font-size: 18px;}
+html {
+    font-size: 18px;
+    min-height: 100vh;
+}
 body {
-    margin: 2em;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 2em;
     background-color: black;
     color: white;
     font-family: 'Computer Modern Serif', serif;
     line-height: 1.6;
 }
-@media (max-width: 600px) {
-    body { margin: 1em; }
+main {
+    flex: 1;
 }
+footer {
+    text-align: center;
+    font-size: 0.85em;
+}
+* { box-sizing: border-box; } /* footer en bas de la pge */
 h1, h2, h3 {
+    text-align: center;
     font-family: 'Computer Modern Serif', serif;
-    font-weight: bold;
 }
-@media (max-width: 600px) {
-h1 { font-size: 1.6rem; }
-h2 { font-size: 1.3rem; }
+h3 {
+    font-weight: 300;
 }
 .btn-groupe {
-display: inline-flex;
-border-radius: 8px; /* arrondi global */
-overflow: hidden;   /* pour que la séparation soit nette */
+    display: inline-flex;
+    border-radius: 8px;
+    overflow: hidden;
 }
-
 .btn-retour {
-display: inline-block;
-padding: 0.35rem 0.6rem;
-border: 1px solid rgba(255,255,255,0.25);
-color: white;
-text-decoration: none;
-font-weight: 600;
-font-family: 'Computer Modern Serif', serif;
-background-color: transparent;
-transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    display: inline-block;
+    padding: 0.3rem 0.5rem;
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 8px;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-family: 'Computer Modern Serif', serif;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
-
-/* Pas d'arrondi interne, juste aux extrémités */
 .btn-left {
-border-radius: 8px 0 0 8px;
+    border-radius: 8px 0 0 8px;
 }
 .btn-right {
-border-radius: 0 8px 8px 0;
-border-left: none; /* enlève la double bordure au milieu */
+    border-radius: 0 8px 8px 0;
+    border-left: none;
 }
-
-/* Effet hover */
 .btn-retour:hover {
-border-color: rgba(255,255,255,0.5);
-background-color: rgba(255,255,255,0.08);
-transform: translateY(-1px);
+    border-color: rgba(255,255,255,0.5);
+    background-color: rgba(255,255,255,0.08);
+    transform: translateY(-1px);
 }
-
-/* ---- Mise en page de la page Seconde ---- */
 .container {
-max-width: 1200px;
-margin: 0 auto;
-padding: 1rem 0 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 0 1rem;
 }
-
 :root{
-  --rule-color: white;
-  --rule-thickness: 2px;
-  --rule-left: 30px;     /* longueur de la petite ligne de gauche */
-  --gap: 0.6rem;         /* espace entre lignes et texte */
+    --rule-color: white;
+    --rule-thickness: 2px;
+    --rule-left: 30px;
+    --gap: 0.6rem;
 }
-
 .panneau-titre{
-  display: flex;
-  align-items: center;        /* aligne verticalement le texte sur la ligne */
-  gap: var(--gap);
-  margin-top: 1.2rem;
-  margin-bottom: 0.8rem;
-  font-family: 'Orbitron', sans-serif;
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--rule-color);
-  text-shadow: 0 0.5px 0.5px rgba(113, 141, 241, 0.296); /* ombre du texte vers le bas */
+    display: flex;
+    align-items: center;
+    gap: var(--gap);
+    margin-top: 1.2rem;
+    margin-bottom: 0.8rem;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--rule-color);
+    text-shadow: 0 0.5px 0.5px rgba(113, 141, 241, 0.296); /* ombre du texte vers le bas */
 }
-
 .panneau-titre::before{
-  content:"";
-  display:block;
-  width:30px;                     /* longueur fixe à gauche */
-  height:2px;                     /* épaisseur du trait */
-  background: var(--rule-color);
-  box-shadow:
-    0 0 14px 2px rgba(140,114,255,.45),
-    0 4px 10px rgba(0,0,0,.6);      
-  flex:0 0 auto;
+    content:"";
+    display:block;
+    width:30px;
+    height:1px;
+    background: var(--rule-color);
+    box-shadow:
+        0 0 14px 2px rgba(140,114,255,.45),
+        0 4px 10px rgba(0,0,0,.6);      
+    flex:0 0 auto;
 }
-
-/* ligne à droite */
 .panneau-titre::after{
-  content:"";
-  display:block;
-  height:2px;
-  background: var(--rule-color);
-  box-shadow:
-    0 0 14px 2px rgba(140,114,255,.45),
-    0 4px 10px rgba(0,0,0,.6);
-  flex:1 1 auto;
+    content:"";
+    display:block;
+    height:1px;
+    background: var(--rule-color);
+    box-shadow:
+        0 0 14px 2px rgba(140,114,255,.45),
+        0 4px 10px rgba(0,0,0,.6);
+    flex:1 1 auto;
 }
-
-/* Grille de contenu */
 .panneau-contenu {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-  margin: 0 1rem 0 1rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin: 0 1rem 0 1rem;
 }
-
 @media (min-width: 760px) {
   .panneau-contenu { grid-template-columns: 1fr 1fr; }
 }
-
-
-
 /* Carte chapitre */
 .carte {
-position: relative;
-border: 1px solid blue;
-border-radius: 10px;
-padding: 0.8rem 0.8rem 0.9rem;
-background: black;
-transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+    position: relative;
+    border: 1px solid rgb(104, 104, 253);
+    border-radius: 10px;
+    padding: 0.8rem 0.8rem 0.9rem;
+    background: black;
+    transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
 }
 .carte:hover {
     transform: translateY(0px);
@@ -144,109 +135,96 @@ transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
         0 0px 10px rgba(140, 114, 255, 0.577); /* ombre claire ajoutée */
 }
 .carte h3 {
-margin: 0 0 0.25rem 0;
-font-size: 1.15rem;
+    margin: 0 0 0.25rem 0;
+    font-size: 1.15rem;
 }
 .carte:hover h3 {
-color: yellow;
-/* color: rgb(157, 146, 255); */
-margin: 0 0 0.25rem 0;
-font-size: 1.15rem;
+    color: yellow;
+    margin: 0 0 0.25rem 0;
+    font-size: 1.15rem;
 }
-
-/* Méta (petit texte) */
 .meta {
-font-size: 0.92rem;
-opacity: 0.9;
-margin-bottom: 0.5rem;
+    font-size: 0.92rem;
+    opacity: 0.9;
+    margin-bottom: 0.5rem;
 }
-
 /* Ligne de ressources (puces/badges) */
 .ressources {
-display: flex;
-flex-wrap: wrap;
-gap: 0.4rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
 }
 .chip {
-display: inline-flex;
-align-items: center;
-border: 1px solid rgba(255,255,255,0.22);
-border-radius: 999px;
-padding: 0.35rem 0.6rem;
-font-size: 0.92rem;
-line-height: 1.2;
-text-decoration: none;
-color: white;
-transition: background-color .18s ease, border-color .18s ease, color .18s ease;
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid rgba(255,255,255,0.22);
+    border-radius: 999px;
+    padding: 0.35rem 0.6rem;
+    font-size: 0.92rem;
+    line-height: 1.2;
+    text-decoration: none;
+    color: white;
+    transition: background-color .18s ease, border-color .18s ease, color .18s ease;
 }
 .chip:focus { outline: 2px solid #fff; outline-offset: 2px; }
-
 /* Couleurs de hover unifiées par discipline */
 .carte .chip:hover {
 color: rgb(255, 255, 180);
 border-color: rgb(255, 255, 180);
 background: rgba(231, 210, 20, 0.063);
 }
-
 </style>
 </head>
 
-
 <body>
-<main class="container" aria-labelledby="titre-seconde">
-<h1 id="titre-seconde" style="text-align:center; margin: 0 0 1rem 0;">
-    Première Spé
-</h1>
-
-<nav style="text-align: center;">
-  <div class="btn-groupe">
-    <a href="index.html" class="btn-retour btn-left">Accueil</a>
-    <a href="premiere.html" class="btn-retour btn-right">Filières de 1<sup style="font-size: 0.7em;">e</sup></a>
-  </div>
-</nav>
-
-<div class="panneau">
-    <!--  -->
-    <!-- --------- Maths --------- -->
-    <!--  -->
-    <h1 class="panneau-titre">Mathématiques</h1>
-
-    <div class="panneau-contenu">
-        <!-- Carte chapitre (exemple) -->
-        <article class="carte">
-        <h3>Chapitre 1 : Fonctions du second degré</h3>
-        <nav class="ressources" aria-label="Ressources chapitre 1">
-            <a class="chip" href="media/premiere_spe/chap01/1ere_chap01.pdf">📝 Cours (15/09)</a>
-            <!-- <a class="chip"   href="media/premiere">🧮 Exercices</a> -->
-            <a class="chip" href="media/premiere_spe/chap01/cone_parabole.mp4">🎦 Cône & parabole</a>
-            <a class="chip" href="media/premiere_spe/chap01/Paraboles.mp4">🎦 Exemples paraboles</a>
-            <a class="chip" href="media/premiere_spe/chap01/sommet_parabole.mp4">🎦 Sommet parabole</a>
+    <header>
+        <h1>Première Spé</h1>
+        <nav style="text-align: center;">
+        <div class="btn-groupe">
+            <a href="index.html" class="btn-retour btn-left">Accueil</a>
+            <a href="premiere.html" class="btn-retour btn-right">Filières de 1<sup style="font-size: 0.7em;">e</sup></a>
+        </div>
         </nav>
-        </article>
+    </header>
 
-        <article class="carte">
-        <h3>Chapitre 2 : Trigonométrie</h3>
-        <nav class="ressources" aria-label="Ressources chapitre 2">
-            <a class="chip" href="media/premiere_spe/chap02/1ere_chap02.pdf">📝 Cours</a>
-            <a class="chip" href="media/premiere_spe/chap02/cercle1.mp4">🎦 Segments enroulés</a>
-            <a class="chip" href="media/premiere_spe/chap02/droite_enroulee.mp4">🎦 Droite enroulée</a>
-            <a class="chip" href="media/premiere_spe/chap02/cercle_cos_sin.mp4">🎦 Cos & Sin de $M$</a>
-            <a class="chip" href="media/premiere_spe/chap02/fonctions_trigo.mp4">🎦 &nbsp;$x\longmapsto \cos(x),\sin(x)$</a>
-        </nav>
-        </article>
+    <main class="container">
+        <!-- --------- Maths --------- -->
+        <div class="panneau">
+        <h1 class="panneau-titre">Mathématiques</h1>
+        <div class="panneau-contenu">
+            <article class="carte">
+                <h3>Chapitre 1 : Fonctions du second degré</h3>
+                <nav class="ressources" aria-label="Ressources chapitre 1">
+                    <a class="chip" href="media/premiere_spe/chap01/1ere_chap01.pdf">📝 Cours (15/09)</a>
+                    <!-- <a class="chip"   href="media/premiere">🧮 Exercices</a> -->
+                    <a class="chip" href="media/premiere_spe/chap01/cone_parabole.mp4">🎦 Cône & parabole</a>
+                    <a class="chip" href="media/premiere_spe/chap01/Paraboles.mp4">🎦 Exemples paraboles</a>
+                    <a class="chip" href="media/premiere_spe/chap01/sommet_parabole.mp4">🎦 Sommet parabole</a>
+                </nav>
+            </article>
 
-    </div>
-    </section>
+            <article class="carte">
+                <h3>Chapitre 2 : Trigonométrie</h3>
+                <nav class="ressources" aria-label="Ressources chapitre 2">
+                    <a class="chip" href="media/premiere_spe/chap02/1ere_chap02.pdf">📝 Cours</a>
+                    <a class="chip" href="media/premiere_spe/chap02/cercle1.mp4">🎦 Segments enroulés</a>
+                    <a class="chip" href="media/premiere_spe/chap02/droite_enroulee.mp4">🎦 Droite enroulée</a>
+                    <a class="chip" href="media/premiere_spe/chap02/cercle_cos_sin.mp4">🎦 Cos & Sin de $M$</a>
+                    <a class="chip" href="media/premiere_spe/chap02/fonctions_trigo.mp4">🎦 &nbsp;$x\longmapsto \cos(x),\sin(x)$</a>
+                </nav>
+            </article>
+        </div>
+        </div>
 
-    <!--  -->
-    <!-- --------- Programmation ? --------- -->
-    <!--  -->
+        <!-- --------- Programmation ? --------- -->
+    </main>
 
     <footer style="text-align: center; font-size: 0.85em; margin-top: 2rem;">
         <p>Contact : ayme.petit@ac-creteil.fr &nbsp;&nbsp;|&nbsp;&nbsp; &copy; Aymé Petit</p>
     </footer>
-</div>
-</main>
+
+<!-- SCRIPTS -->
+<!-- MathJax -->
 <script>
 window.MathJax = {
     tex: {

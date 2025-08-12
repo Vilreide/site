@@ -5,233 +5,218 @@
 <title>Term STMG (M.Petit)</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- Police LaTeX -->
+<!-- Polices -->
 <link href="https://fonts.googleapis.com/css2?family=Computer+Modern+Serif&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
 
 <style>
-    html {font-size: 18px;}
-    body {
-        margin: 2em;
-        background-color: black;
-        color: white;
-        font-family: 'Computer Modern Serif', serif;
-        line-height: 1.6;
-    }
-    @media (max-width: 600px) {
-        body { margin: 1em; }
-    }
-    h1, h2, h3 {
-        font-family: 'Computer Modern Serif', serif;
-        font-weight: bold;
-    }
-    @media (max-width: 600px) {
-    h1 { font-size: 1.6rem; }
-    h2 { font-size: 1.3rem; }
-    }
-    .btn-groupe {
+html {
+    font-size: 18px;
+    min-height: 100vh;
+}
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 2em;
+    background-color: black;
+    color: white;
+    font-family: 'Computer Modern Serif', serif;
+    line-height: 1.6;
+}
+main {
+    flex: 1;
+}
+footer {
+    text-align: center;
+    font-size: 0.85em;
+}
+* { box-sizing: border-box; } /* footer en bas de la pge */
+h1, h2, h3 {
+    text-align: center;
+    font-family: 'Computer Modern Serif', serif;
+}
+h3 {
+    font-weight: 300;
+}
+.btn-groupe {
     display: inline-flex;
-    border-radius: 8px; /* arrondi global */
-    overflow: hidden;   /* pour que la séparation soit nette */
-    }
-
-    .btn-retour {
+    border-radius: 8px;
+    overflow: hidden;
+}
+.btn-retour {
     display: inline-block;
-    padding: 0.35rem 0.6rem;
+    padding: 0.3rem 0.5rem;
     border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 8px;
     color: white;
     text-decoration: none;
     font-weight: 600;
     font-family: 'Computer Modern Serif', serif;
-    background-color: transparent;
     transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
-    }
-
-    /* Pas d'arrondi interne, juste aux extrémités */
-    .btn-left {
+}
+.btn-left {
     border-radius: 8px 0 0 8px;
-    }
-    .btn-right {
+}
+.btn-right {
     border-radius: 0 8px 8px 0;
-    border-left: none; /* enlève la double bordure au milieu */
-    }
-
-    /* Effet hover */
-    .btn-retour:hover {
+    border-left: none;
+}
+.btn-retour:hover {
     border-color: rgba(255,255,255,0.5);
     background-color: rgba(255,255,255,0.08);
     transform: translateY(-1px);
-    }
-
-    /* ---- Mise en page de la page Seconde ---- */
-    .container {
+}
+.container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 1rem 0 2rem;
-    }
-
-    /* Deux panneaux: Maths / SNT */
-    .panneaux {
-    display: grid;
-    grid-template-columns: 1fr; /* 1 colonne tout le temps */
-    gap: 1rem; /* espace vertical plus grand entre Maths et SNT */
-    }
-
-    /* En-tête de discipline */
-    .discipline {
-    border: 2px solid rgba(255,255,255,0.12);
-    border-radius: 12px;
-    padding: 1rem 1rem 1.25rem;
-    background: rgba(255,255,255,0.03);
-    position: relative;
-    }
-    .discipline h2 {
-    margin: 0 0 0.4rem 0;
-    text-align: left;
-    line-height: 1.25;
-    text-shadow: 5px 5px 15px rgba(0,0,0,0.945);
-    }
-    /* Liseré de discipline (couleurs) */
-    .discipline--maths::before,
-    .discipline--snt::before {
-    content: "";
-    position: absolute; inset: -2px auto -2px -2px;
-    width: 6px; border-radius: 10px 0 0 10px;
-    }
-    .discipline--maths::before { background: yellow; }
-    .discipline--snt::before   { background: rgb(203, 141, 6); }  
-
-    /* Grille de chapitres */
-    .chapitres {
+    padding: 1rem 0 1rem;
+}
+:root{
+    --rule-color: white;
+    --rule-thickness: 2px;
+    --rule-left: 30px;
+    --gap: 0.6rem;
+}
+.panneau-titre{
+    display: flex;
+    align-items: center;
+    gap: var(--gap);
+    margin-top: 1.2rem;
+    margin-bottom: 0.8rem;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--rule-color);
+    text-shadow: 0 0.5px 0.5px rgba(113, 141, 241, 0.296); /* ombre du texte vers le bas */
+}
+.panneau-titre::before{
+    content:"";
+    display:block;
+    width:30px;
+    height:1px;
+    background: var(--rule-color);
+    box-shadow:
+        0 0 14px 2px rgba(140,114,255,.45),
+        0 4px 10px rgba(0,0,0,.6);      
+    flex:0 0 auto;
+}
+.panneau-titre::after{
+    content:"";
+    display:block;
+    height:1px;
+    background: var(--rule-color);
+    box-shadow:
+        0 0 14px 2px rgba(140,114,255,.45),
+        0 4px 10px rgba(0,0,0,.6);
+    flex:1 1 auto;
+}
+.panneau-contenu {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 0.9rem;
-    margin-top: 0.6rem;
-    }
-    @media (min-width: 760px) {
-    .chapitres { grid-template-columns: 1fr 1fr; }
-    }
-
-    /* Carte chapitre */
-    .carte {
+    gap: 1rem;
+    margin: 0 1rem 0 1rem;
+}
+@media (min-width: 760px) {
+  .panneau-contenu { grid-template-columns: 1fr 1fr; }
+}
+/* Carte chapitre */
+.carte {
     position: relative;
-    border: 1px solid rgba(255,255,255,0.12);
+    border: 1px solid orange;
     border-radius: 10px;
     padding: 0.8rem 0.8rem 0.9rem;
-    background: rgba(255,255,255,0.02);
+    background: black;
     transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
-    }
-    .carte:hover {
-    transform: translateY(-1px);
-    border-color: rgba(255,255,255,0.28);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.35);
-    }
-    .carte h3 {
+}
+.carte:hover {
+    transform: translateY(0px);
+    box-shadow:
+        0 0px 10px rgba(255, 166, 0, 0.58); /* ombre claire ajoutée */
+}
+.carte h3 {
     margin: 0 0 0.25rem 0;
-    font-size: 1.05rem;
-    }
-
-    /* Méta (petit texte) */
-    .meta {
+    font-size: 1.15rem;
+}
+.carte:hover h3 {
+    color: yellow;
+    margin: 0 0 0.25rem 0;
+    font-size: 1.15rem;
+}
+.meta {
     font-size: 0.92rem;
     opacity: 0.9;
     margin-bottom: 0.5rem;
-    }
-
-    /* Ligne de ressources (puces/badges) */
-    .ressources {
+}
+/* Ligne de ressources (puces/badges) */
+.ressources {
     display: flex;
     flex-wrap: wrap;
     gap: 0.4rem;
-    }
-    .chip {
+}
+.chip {
     display: inline-flex;
     align-items: center;
     border: 1px solid rgba(255,255,255,0.22);
     border-radius: 999px;
-    padding: 0.18rem 0.6rem;
+    padding: 0.35rem 0.6rem;
     font-size: 0.92rem;
     line-height: 1.2;
     text-decoration: none;
     color: white;
     transition: background-color .18s ease, border-color .18s ease, color .18s ease;
-    }
-    .chip:focus { outline: 2px solid #fff; outline-offset: 2px; }
-
-    /* Couleurs de hover unifiées par discipline */
-    .discipline--maths .chip:hover {
-    color: #ff5c5c; /* texte rouge */
-    border-color: #ff5c5c;
-    background: rgba(255,92,92,0.16);
-    }
-
-    .discipline--snt .chip:hover {
-    color: #5cbcff; /* texte bleu */
-    border-color: #5cbcff;
-    background: rgba(92,188,255,0.16);
-    }
+}
+.chip:focus { outline: 2px solid #fff; outline-offset: 2px; }
+/* Couleurs de hover unifiées par discipline */
+.carte .chip:hover {
+color: rgb(255, 255, 180);
+border-color: rgb(255, 255, 180);
+background: rgba(231, 210, 20, 0.063);
+}
 </style>
 </head>
 
-
 <body>
-<main class="container" aria-labelledby="titre-seconde">
-<h1 id="titre-seconde" style="text-align:center; margin: 0 0 1rem 0;">
-    Terminale - Filière STMG
-</h1>
-
-<nav class="retour-accueil" style="text-align:center; margin:1rem 0 1.2rem;">
-  <div class="btn-groupe">
-    <a href="index.html" class="btn-retour btn-left">Accueil</a>
-    <a href="terminale.html" class="btn-retour btn-right">Filières de Term</a>
-  </div>
-</nav>
-
-<div class="panneaux">
-    <!--  -->
-    <!-- --------- Maths --------- -->
-    <!--  -->
-    <section class="discipline discipline--maths" aria-labelledby="h2-maths">
-    <h2 id="h2-maths">Mathématiques</h2>
-
-    <div class="chapitres">
-        <!-- Carte chapitre (exemple) -->
-        <article class="carte">
-        <h3>Chapitre 1 : ??</h3>
-        <nav class="ressources" aria-label="Ressources chapitre 1">
-            <a class="chip" href="">📝 Cours (15/09)</a>
-            <!-- <a class="chip"   href="media/premiere">🧮 Exercices</a> -->
+    <header>
+        <h1>Terminale STMG</h1>
+        <nav style="text-align: center;">
+        <div class="btn-groupe">
+            <a href="index.html" class="btn-retour btn-left">Accueil</a>
+            <a href="terminale.html" class="btn-retour btn-right">Filières de Term</a>
+        </div>
         </nav>
-        </article>
+    </header>
 
+    <main class="container">
+        <!-- --------- Maths --------- -->
+        <div class="panneau">
+        <h1 class="panneau-titre">Mathématiques</h1>
+        <div class="panneau-contenu">
+            <article class="carte">
+                <h3>Chapitre 1 : Super chapitre n°1</h3>
+                <nav class="ressources" aria-label="Ressources chapitre 1">
+                    <a class="chip">📝 Cours (15/09)</a>
+                </nav>
+            </article>
 
-    </div>
-    </section>
+            <article class="carte">
+                <h3>Chapitre 2 : Super chapitre n°2</h3>
+                <nav class="ressources" aria-label="Ressources chapitre 1">
+                    <a class="chip">📝 Cours (15/09)</a>
+                </nav>
+            </article>
+        </div>
+        </div>
 
-    <!--  -->
-    <!-- --------- Math-info ? --------- -->
-    <!--  -->
+        <!-- --------- Programmation ? --------- -->
+    </main>
 
-    <!-- <section class="discipline discipline--snt" aria-labelledby="h2-snt">
-    <h2 id="h2-maths">Math-info</h2>
-
-    <div class="chapitres">
-        Carte chapitre (exemple)
-        <article class="carte">
-        <h3>Excel</h3>
-        <nav class="ressources" aria-label="Ressources chapitre 1">
-
-        </nav>
-        </article>
-
-
-    </div>
-    </section> -->
-
-    <footer style="text-align: center; font-size: 0.85em;">
-        <p>Contact : ayme.petit@ac-creteil.fr &nbsp;&nbsp;|&nbsp;&nbsp; &copy; Aymé Petit - 2025</p>
+    <footer style="text-align: center; font-size: 0.85em; margin-top: 2rem;">
+        <p>Contact : ayme.petit@ac-creteil.fr &nbsp;&nbsp;|&nbsp;&nbsp; &copy; Aymé Petit</p>
     </footer>
-</div>
-</main>
+
+<!-- SCRIPTS -->
+<!-- MathJax -->
 <script>
 window.MathJax = {
     tex: {

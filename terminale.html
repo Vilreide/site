@@ -1,145 +1,169 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <title>Première — Choix de filière</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<title>Term — Choix de filière</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Police LaTeX -->
-  <link href="https://fonts.googleapis.com/css2?family=Computer+Modern+Serif&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Computer+Modern+Serif&display=swap" rel="stylesheet">
 
 <style>
-  html {font-size: 18px;}
-  body {
-      margin: 2em;
-      background-color: black;
-      color: white;
-      font-family: 'Computer Modern Serif', serif;
-      line-height: 1.6;
-  }
-  h1, h2 {
-      font-family: 'Computer Modern Serif', serif;
-      font-weight: bold;
-      text-align: center;
-  }
-  .retour-accueil {
-  margin: 0.7rem 0;
-  }
-
-  .btn-retour {
-  display: inline-block;
-  padding: 0.3rem 0.5rem;
-  border: 1px solid rgba(255,255,255,0.25);
-  border-radius: 8px;
-  color: white;
-  text-decoration: none;
-  font-weight: 600;
-  font-family: 'Computer Modern Serif', serif;
-  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
-  }
-
-  .btn-retour:hover {
-  border-color: rgba(255,255,255,0.5);
-  background-color: rgba(255,255,255,0.08);
-  transform: translateY(-1px);
-  }
-
-  .menu-niveaux {
-      display: flex;
-      gap: 0rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin: 1rem auto;
-  }
-
-  .bloc {
-      display: block;
-      position: relative;
-      overflow: hidden;
-      width: 280px;
-      height: 160px;
-      margin: 0.3rem auto;
-      border-radius: 10px;
-      text-decoration: none;
-      color: white;
-      font-size: 1.3rem;
-      font-weight: bold;
-      transition: transform 0.2s ease;
-  }
-  .bloc:hover { transform: translateY(-3px); }
-
-  .bloc video, .bloc img {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: 0;
-      transition: filter 0.2s ease;
-  }
-
-  .bloc h2 {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      margin: 0;
-      line-height: 160px;
-      text-shadow: 5px 5px 15px rgba(0,0,0,0.945);
-  }
-
-  /* Spécialité */
-  .bloc { border: 2px solid orange; }
-  .bloc:hover { color: #ffb65c; }
-  .bloc:hover h2 { color: #e7ff0f; }
-  .bloce:hover video, { filter: brightness(0.6); }
-
-  /* STMG */
-  .bloc-stmg { border: 2px solid #4fd1c5; }
-  .bloc-stmg:hover { color: #4fd1c5; }
-  .bloc-stmg:hover h2 { color: #4fd1c5; }
-  .bloc-stmg:hover video, .bloc-stmg:hover img { filter: brightness(0.6); }
-
-  /* Responsive */
-  @media (max-width: 700px) {
-      .menu-niveaux {
-      flex-direction: column;
-      align-items: center;
-      gap: 1rem;
-      }
-      .bloc {
-      width: 90%;
-      max-width: 350px;
-      }
-  }
+html {
+    font-size: 18px;
+    min-height: 100vh;
+}
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 2em;
+    background-color: black;
+    color: white;
+    font-family: 'Computer Modern Serif', serif;
+    line-height: 1.6;
+}
+main {
+    flex: 1;
+}
+footer {
+    text-align: center;
+    font-size: 0.85em;
+}
+* { box-sizing: border-box; } /* footer en bas de la pge */
+h1, h2, h3 {
+    text-align: center;
+    font-family: 'Computer Modern Serif', serif;
+}
+h3 {
+    font-weight: 300;
+}
+.retour-accueil {
+    margin-top: 0;       /* pas d’espace supplémentaire au-dessus */
+    margin-bottom: 1rem; /* si tu veux un peu d’espace sous le bouton */
+}
+.btn-retour {
+    display: inline-block;
+    padding: 0.3rem 0.5rem;
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 8px;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-family: 'Computer Modern Serif', serif;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+.btn-retour:hover {
+    border-color: rgba(255,255,255,0.5);
+    background-color: rgba(255,255,255,0.08);
+    transform: translateY(-1px);
+}
+.menu-niveaux {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 2rem auto;
+    max-width: 1100px;
+}
+@media (max-width: 700px) {
+    .menu-niveaux {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    }
+}
+.bloc {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    width: clamp(250px, 30vw, 450px);
+    height: clamp(150px, 18vw, 270px);
+    margin: 1rem auto;
+    border-radius: 10px;
+    text-decoration: none;
+    color: white;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+.bloc:hover { transform: translateY(-3px); }
+.bloc video {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+.bloc video::-webkit-media-controls {
+    display: none !important;
+    -webkit-appearance: none;
+}
+.bloc video::-webkit-media-controls-enclosure {display: none !important;}
+.bloc video::-webkit-media-controls-panel {display: none !important;}
+.bloc h2 {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+    text-align: center;
+}
+.bloc-terminale { border: 2px solid orange; }
+.bloc-terminale:hover {
+color: #ffb65c;
+}
+.bloc-terminale:hover h2 {
+color: #e7ff0f;
+}
+.bloc-terminale:hover video {
+filter: brightness(0.6);
+}
 </style>
 </head>
 
 <body>
-
     <header>
         <h1>Terminale</h1>
+        <nav class="retour-accueil" style="text-align: center;">
+            <a href="index.html" class="btn-retour">Accueil</a>
+        </nav>
     </header>
-    <nav class="retour-accueil" style="text-align: center;">
-        <a href="index.html" class="btn-retour">Accueil</a>
-    </nav>
 
+    <main>
     <nav class="menu-niveaux">
-    <!-- STMG -->
-    <a href="terminale-stmg.html" class="bloc bloc-spe">
-        <video src="media/divers/icosaedre.mp4" autoplay muted loop playsinline></video>
-        <h2>STMG</h2>
-    </a>
-    
-    <!-- Spécialité -->
-    <a href="terminale-spe.html" class="bloc bloc-spe">
-        <video src="media/divers/icosaedre.mp4" autoplay muted loop playsinline></video>
-        <h2>Spécialité</h2>
-    </a>
+        <!-- STMG -->
+        <a href="terminale-stmg.html" class="bloc bloc-terminale">
+            <video src="media/divers/icosaedre.mp4" autoplay muted loop playsinline></video>
+            <h2>STMG</h2>
+        </a>
+        <!-- Spécialité -->
+        <a href="terminale-spe.html" class="bloc bloc-terminale">
+            <video src="media/divers/icosaedre.mp4" autoplay muted loop playsinline></video>
+            <h2>Spécialité</h2>
+        </a>
     </nav>
+    </main>
 
-<!--  -->
-<!-- Scripts -->
- <!--  -->
+    <footer>
+        <p>Contact : ayme.petit@ac-creteil.fr &nbsp;&nbsp;|&nbsp;&nbsp; &copy; Aymé Petit</p>
+    </footer>
+
+<!-- SCRIPTS -->
+<!-- MathJax -->
+<script>
+window.MathJax = {
+    tex: {
+    inlineMath: [['\\(', '\\)'], ['$', '$']],
+    displayMath: [['\\[', '\\]']],
+    processEscapes: true,
+    packages: ['base','ams']
+    },
+    loader: { load: ['[tex]/ams'] },
+    svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-svg.js" defer></script>
+<!-- Vidéos -->
 <script>
 (function () {
   function resumeAll(fromBFCache) {

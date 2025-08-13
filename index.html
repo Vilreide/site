@@ -92,21 +92,18 @@ h3 {
         margin: 0.7rem auto
     }
 }
-.bloc .poster {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -1;
-}
+.bloc .poster ,
 .bloc video {
     position: absolute;
     top: 0; left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+.bloc .poster {
+    z-index: -1;
+}
+.bloc video {
     z-index: 0;
 }
 .bloc video::-webkit-media-controls {
@@ -168,6 +165,7 @@ h3 {
         <nav class="menu-niveaux">
             <!-- Seconde -->
             <a href="seconde.html" class="bloc bloc-seconde">
+                <img src="media/divers/tetraedre.png" alt="" class="poster">
                 <video src="media/divers/tetraedre.mp4" autoplay muted loop playsinline></video>
                 <h2 style="text-shadow: 5px 5px 15px rgba(0, 0, 0, 0.945);">Seconde</h2>
             </a>
@@ -179,6 +177,7 @@ h3 {
             </a>
             <!-- Terminale -->
             <a href="terminale.html" class="bloc bloc-terminale">
+                <img src="media/divers/icosaedre.png" alt="" class="poster">
                 <video src="media/divers/icosaedre.mp4" autoplay muted loop playsinline></video>
                 <h2 style="text-shadow: 5px 5px 15px rgba(0, 0, 0, 0.945);">Terminale</h2>
             </a>
@@ -219,7 +218,7 @@ window.MathJax = {
           if (video.paused) {
             video.style.display = 'none'; // Autoplay bloqué → cacher la vidéo
           }
-        }, 300);
+        }, 50);
       });
     }
   }

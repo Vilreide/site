@@ -95,12 +95,18 @@ h3 {
     font-weight: bold;
 }
 .bloc:hover { transform: translateY(-3px); }
+.bloc .poster ,
 .bloc video {
     position: absolute;
     top: 0; left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+.bloc .poster {
+    z-index: -1;
+}
+.bloc video {
     z-index: 0;
 }
 .bloc video::-webkit-media-controls {
@@ -140,11 +146,13 @@ filter: brightness(0.6);
     <nav class="menu-niveaux">
         <!-- STMG -->
         <a href="terminale-stmg.html" class="bloc bloc-terminale">
+            <img src="media/divers/icosaedre.png" alt="" class="poster">
             <video src="media/divers/icosaedre.mp4" autoplay muted loop playsinline></video>
             <h2>STMG</h2>
         </a>
         <!-- Spécialité -->
         <a href="terminale-spe.html" class="bloc bloc-terminale">
+            <img src="media/divers/icosaedre.png" alt="" class="poster">
             <video src="media/divers/icosaedre.mp4" autoplay muted loop playsinline></video>
             <h2>Spécialité</h2>
         </a>
@@ -173,13 +181,27 @@ window.MathJax = {
 <!-- Vidéos -->
 <script>
 (function () {
+  function tryPlayOrHide(video) {
+    // Essayer de jouer la vidéo
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // Attendre un peu pour être sûr que ce n’est pas juste un retard
+        setTimeout(() => {
+          if (video.paused) {
+            video.style.display = 'none'; // Autoplay bloqué → cacher la vidéo
+          }
+        }, 50);
+      });
+    }
+  }
+
   function resumeAll(fromBFCache) {
     document.querySelectorAll('video[autoplay]').forEach(v => {
       v.muted = true;      // requis pour l’autoplay
       v.playsInline = true;
 
       const targetTime = fromBFCache && v.dataset.t ? parseFloat(v.dataset.t) : null;
-      const tryPlay = () => v.play().catch(() => {});
 
       if (v.readyState < 2) { // pas encore de données décodées
         if (targetTime != null) {
@@ -187,16 +209,16 @@ window.MathJax = {
             try { v.currentTime = targetTime; } catch {}
           }, { once: true });
         }
-        v.addEventListener('loadeddata', tryPlay, { once: true });
+        v.addEventListener('loadeddata', () => tryPlayOrHide(v), { once: true });
         v.load(); // “réveille” le décodage sur Safari après bfcache
       } else {
         if (targetTime != null) try { v.currentTime = targetTime; } catch {}
-        if (v.paused) tryPlay();
+        if (v.paused) tryPlayOrHide(v);
       }
     });
   }
 
-  // Au moment de quitter la page vers l’historique (bfcache)
+  // Sauvegarde de la position à la sortie
   window.addEventListener('pagehide', e => {
     if (e.persisted) {
       document.querySelectorAll('video[autoplay]').forEach(v => {
@@ -205,7 +227,7 @@ window.MathJax = {
     }
   });
 
-  // Au retour depuis l’historique
+  // Reprise après retour depuis l’historique
   window.addEventListener('pageshow', e => {
     resumeAll(e.persisted === true);
   });
@@ -213,6 +235,11 @@ window.MathJax = {
   // Filet de sécurité quand l’onglet redevient visible
   document.addEventListener('visibilitychange', () => {
     if (!document.hidden) resumeAll(false);
+  });
+
+  // Lancer au chargement initial
+  document.addEventListener('DOMContentLoaded', () => {
+    resumeAll(false);
   });
 })();
 </script>

@@ -50,7 +50,7 @@ h3 {
 .btn-retour {
     display: inline-block;
     padding: 0.3rem 0.5rem;
-    border: 1px solid rgba(255,255,255,0.25);
+    border: 1.5px solid rgba(255,255,255,0.25);
     border-radius: 8px;
     color: white;
     text-decoration: none;
@@ -176,6 +176,116 @@ color: rgb(255, 255, 180);
 border-color: rgb(255, 255, 180);
 background: rgba(231, 210, 20, 0.063);
 }
+/* --- Filtre des chapitres terminés --- */
+.filtre-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 1rem;
+  margin-top: 0.5rem;
+  margin-bottom: -0.5rem;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.85);
+  user-select: none;
+}
+
+/* Label pour l'alignement */
+.filtre-container label {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+}
+
+/* Interrupteur effet "liquid glass" */
+.filtre-container input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 30px;
+  height: 15px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.25);
+  backdrop-filter: blur(6px) saturate(180%);
+  -webkit-backdrop-filter: blur(6px) saturate(180%);
+  position: relative;
+  cursor: pointer;
+  transition:
+    background 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+  box-shadow:
+    inset 0 0 6px rgba(255,255,255,0.1),
+    0 0 4px rgba(255,255,255,0.05);
+}
+
+/* La bille du toggle */
+.filtre-container input[type="checkbox"]::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.8);
+  box-shadow:
+    inset 0 0 4px rgba(255,255,255,0.4),
+    0 0 8px rgba(255,255,255,0.3);
+  transition:
+    transform 0.35s ease,
+    background 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+/* Survol du toggle */
+.filtre-container input[type="checkbox"]:hover {
+  border-color: rgba(255, 255, 255, 0.747);
+  box-shadow:
+    inset 0 0 8px rgba(255,255,255,0.1),
+    0 0 6px rgba(255,255,255,0.2);
+}
+
+/* État activé — effet rouge “liquid glass” */
+.filtre-container input[type="checkbox"]:checked {
+  background: rgba(255, 90, 90, 0.25);
+  border-color: rgba(254, 92, 92, 0.6);
+  box-shadow:
+    inset 0 0 10px rgba(254, 92, 92, 0.3),
+    0 0 12px rgba(254, 92, 92, 0.4);
+}
+
+.filtre-container input[type="checkbox"]:checked::before {
+  transform: translateX(15.5px);
+  background: rgba(255, 110, 110, 0.85);
+  box-shadow:
+    0 0 8px rgba(254, 92, 92, 0.6),
+    inset 0 0 4px rgba(255,255,255,0.3);
+}
+
+
+
+
+
+/* .filtre-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 1rem;
+  margin-top: 0.5rem;
+  margin-bottom: -0.5rem;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+.filtre-container label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.filtre-container input[type="checkbox"] {
+  accent-color: rgb(254, 92, 92);
+  transform: scale(1.1);
+} */
 </style>
 </head>
 
@@ -190,12 +300,19 @@ background: rgba(231, 210, 20, 0.063);
         </nav>
     </header>
 
+    <div class="filtre-container">
+    <label>
+        <input type="checkbox" id="filtreTermines">
+        Masquer les chapitres terminés
+    </label>
+    </div>
+
     <main class="container">
         <!-- --------- Maths --------- -->
         <div class="panneau">
         <!-- <h1 class="panneau-titre">Mathématiques</h1> -->
         <div class="panneau-contenu">
-            <article class="carte">
+            <article class="carte" data-statut="termine">
                 <h3>Chapitre 1 : Fonctions du second degré</h3>
                 <nav class="ressources" aria-label="Ressources chapitre 1">
                     <a class="chip" href="media/premiere_spe/chap01/1ere_chap01.pdf">📚 Cours (complet)</a>
@@ -203,17 +320,17 @@ background: rgba(231, 210, 20, 0.063);
                     <a class="chip"   href="media/premiere_spe/chap01/Corrections.pdf">👌 Exo. corrigés</a>
                     <a class="chip" href="media/premiere_spe/chap01/cone_parabole.mp4">🎬 Cône</a>
                     <a class="chip" href="media/premiere_spe/chap01/sommet_parabole.mp4">🎬 Sommet parabole</a>
-                    <a class="chip" href="https://mathlive.fr/auth/student/?sessionCode=425294" target="_blank" style="width: 109px;">
-                        <img src="media/divers/mathlive.png" style="width: 16%;">&nbsp; Mathlive 1
+                    <a class="chip" href="https://mathlive.fr/auth/student/?sessionCode=425294" target="_blank" style="width: 115px;">
+                        <img src="media/divers/mathlive3.jpeg" style="width: 19%;">&nbsp; Mathlive 1
                     </a>
-                    <a class="chip" href="https://mathlive.fr/auth/student/?sessionCode=456347" target="_blank" style="width: 109px;">
-                        <img src="media/divers/mathlive.png" style="width: 16%;">&nbsp; Mathlive 2
+                    <a class="chip" href="https://mathlive.fr/auth/student/?sessionCode=456347" target="_blank" style="width: 115px;">
+                        <img src="media/divers/mathlive3.jpeg" style="width: 19%;">&nbsp; Mathlive 2
                     </a>
                     <a class="chip" href="media/premiere_spe/chap01/1ere_chap01_reussite.pdf">✅ Réussite</a>
                 </nav>
             </article>
 
-            <article class="carte">
+            <article class="carte" data-statut="termine">
                 <h3>Chapitre 2 : Trigonométrie</h3>
                 <nav class="ressources" aria-label="Ressources chapitre 2">
                     <a class="chip" href="media/premiere_spe/chap02/1ere_chap02.pdf">📚 Cours (complet)</a>
@@ -226,7 +343,7 @@ background: rgba(231, 210, 20, 0.063);
                 </nav>
             </article>
 
-            <article class="carte">
+            <article class="carte" data-statut="encours">
                 <h3>Chapitre 3 : Généralités sur les suites</h3>
                 <nav class="ressources" aria-label="Ressources chapitre 2">
                     <a class="chip" href="media/premiere_spe/chap03/1ere_chap03.pdf">📚 Cours (14/10)</a>
@@ -255,6 +372,16 @@ window.MathJax = {
     loader: { load: ['[tex]/ams'] },
     svg: { fontCache: 'global' }
 };
+</script>
+<!-- Bouton -->
+<script>
+document.getElementById('filtreTermines').addEventListener('change', function() {
+  const cartes = document.querySelectorAll('.carte');
+  cartes.forEach(carte => {
+    const estTermine = carte.dataset.statut === 'termine';
+    carte.style.display = (this.checked && estTermine) ? 'none' : '';
+  });
+});
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-svg.js" defer></script>
 </body>

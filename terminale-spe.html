@@ -8,7 +8,7 @@
 <!-- Polices -->
 <link href="https://fonts.googleapis.com/css2?family=Computer+Modern+Serif&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
-
+<!-- Style des contenus -->
 <style>
 html {
     font-size: 18px;
@@ -18,7 +18,7 @@ body {
     min-height: calc(100dvh - 1em);
     display: flex;
     flex-direction: column;
-    padding: 0.8em;
+    padding: 0 0.8em 0em;
     background-color: black;
     color: white;
     font-family: 'Computer Modern Serif', serif;
@@ -41,34 +41,6 @@ h1, h2, h3 {
 }
 h3 {
     font-weight: 300;
-}
-.btn-groupe {
-    display: inline-flex;
-    border-radius: 8px;
-    overflow: hidden;
-}
-.btn-retour {
-    display: inline-block;
-    padding: 0.3rem 0.5rem;
-    border: 1px solid rgba(255,255,255,0.25);
-    border-radius: 8px;
-    color: white;
-    text-decoration: none;
-    font-weight: 600;
-    font-family: 'Computer Modern Serif', serif;
-    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
-}
-.btn-left {
-    border-radius: 8px 0 0 8px;
-}
-.btn-right {
-    border-radius: 0 8px 8px 0;
-    border-left: none;
-}
-.btn-retour:hover {
-    border-color: rgba(255,255,255,0.5);
-    background-color: rgba(255,255,255,0.08);
-    transform: translateY(-1px);
 }
 .container {
     max-width: 1200px;
@@ -177,15 +149,110 @@ border-color: rgb(255, 255, 180);
 background: rgba(231, 210, 20, 0.063);
 }
 </style>
+
+<!-- Boutons -->
+<style>
+.btn-groupe {
+  display: inline-flex;
+  gap: 0.25rem;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.btn-retour {
+  display: inline-flex;               /* au lieu d’inline-block */
+  align-items: center;                /* centre verticalement le texte */
+  justify-content: center;            /* centre horizontalement */
+  padding: 0.08rem 0.6rem;
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.92);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95em;
+  font-family: 'Computer Modern Serif', serif;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(8px) saturate(180%);
+  -webkit-backdrop-filter: blur(8px) saturate(180%);
+  box-shadow:
+    inset 0 0 6px rgba(255,255,255,0.1),
+    0 0 4px rgba(255,255,255,0.05);
+  transition:
+    background 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.2s ease,
+    border-color 0.25s ease;
+}
+
+.btn-retour:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow:
+    inset 0 0 10px rgba(255,255,255,0.15),
+    0 0 10px rgba(255,255,255,0.1);
+  transform: translateY(0px);
+}
+
+.btn-retour:active {
+  transform: translateY(0);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow:
+    inset 0 0 8px rgba(255,255,255,0.1),
+    0 0 3px rgba(255,255,255,0.05);
+}
+.btn-retour sup {
+  font-size: 0.6em;
+  position: relative;
+  top: -0.35em; /* remonte l’exposant visuellement */
+}
+</style>
+
+<!-- Bannière hero -->
+<style>
+.hero {
+  position: relative;
+  width: 100%;
+  height: 120px; /* hauteur de la bannière */
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1em;
+}
+
+.hero-image {
+  height: 75%;
+  width: auto;
+  transform: translate(-0%, 4%);
+  object-fit: contain; /* pour que l’image remplisse bien le cadre */
+  opacity: 0.99; /* légère transparence pour lisibilité du texte */
+  filter: blur(0px) brightness(0.9); /* optionnel : effet “fondu” ou “assombri” */
+}
+
+.hero-title {
+  position: absolute; /* le remet au-dessus de l’image */
+  z-index: 2;
+  color: white;
+  font-family: 'Computer Modern Serif', serif;
+  font-size: 2.2em;
+  font-weight: 700;
+  text-align: center;
+  text-shadow: 0 0 8px rgba(0,0,0,0.6); /* lisibilité */
+}
+
+</style>
 </head>
 
 <body>
     <header>
-        <h1>Terminale Spé</h1>
+        <div class="hero">
+            <img src="media/divers/icosaedre_noir.png" alt="" class="hero-image">
+            <h1 class="hero-title">Terminale Spé</h1>
+        </div>
         <nav style="text-align: center;">
         <div class="btn-groupe">
-            <a href="index.html" class="btn-retour btn-left">Accueil</a>
-            <a href="terminale.html" class="btn-retour btn-right">Filières de Term</a>
+            <a href="index.html" class="btn-retour btn-retour-plein">Accueil</a>
+            <a href="terminale.html" class="btn-retour btn-retour-contour">Filières de Term</a>
         </div>
         </nav>
     </header>

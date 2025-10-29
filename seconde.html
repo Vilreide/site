@@ -8,6 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Computer+Modern+Serif&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
 
+<!-- Style des contenus -->
 <style>
 html {
     font-size: 18px;
@@ -17,7 +18,7 @@ body {
     min-height: calc(100dvh - 1em);
     display: flex;
     flex-direction: column;
-    padding: 0.8em;
+    padding: 0 0.8em 0em;
     background-color: black;
     color: white;
     font-family: 'Computer Modern Serif', serif;
@@ -41,26 +42,6 @@ h1, h2, h3 {
 h3 {
     font-weight: 300;
 }
-.retour-accueil {
-    margin-top: 0;       /* pas d’espace supplémentaire au-dessus */
-    margin-bottom: 1rem; /* si tu veux un peu d’espace sous le bouton */
-}
-.btn-retour {
-    display: inline-block;
-    padding: 0.3rem 0.5rem;
-    border: 1px solid rgba(255,255,255,0.25);
-    border-radius: 8px;
-    color: white;
-    text-decoration: none;
-    font-weight: 600;
-    font-family: 'Computer Modern Serif', serif;
-    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
-}
-.btn-retour:hover {
-    border-color: rgba(255,255,255,0.5);
-    background-color: rgba(255,255,255,0.08);
-    transform: translateY(-1px);
-}
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -78,33 +59,43 @@ h3 {
     gap: var(--gap);
     margin-top: 0rem;
     margin-bottom: 0.8rem;
-    font-family: 'Orbitron', sans-serif;
+    /* font-family: 'Orbitron', sans-serif; */
     font-size: 0.8rem;
     font-weight: 700;
     color: var(--rule-color);
-    text-shadow: 0 0.5px 0.5px rgba(113, 141, 241, 0.296); /* ombre du texte vers le bas */
+    text-shadow: 0 0.5px 0.5px rgba(241, 113, 113, 0.684); /* ombre du texte vers le bas */
 }
-.panneau-titre::before{
-    content:"";
-    display:block;
-    width:30px;
-    height:1px;
-    background: var(--rule-color);
-    box-shadow:
-        0 0 14px 2px rgba(140,114,255,.45),
-        0 4px 10px rgba(0,0,0,.6);      
-    flex:0 0 auto;
+.panneau-titre {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  margin: 1.2rem 1rem 1rem 1rem; /* même marge latérale que les cartes */
+  font-family: 'Computer Modern Serif', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.9);
+  text-align: center;
 }
-.panneau-titre::after{
-    content:"";
-    display:block;
-    height:1px;
-    background: var(--rule-color);
-    box-shadow:
-        0 0 14px 2px rgba(140,114,255,.45),
-        0 4px 10px rgba(0,0,0,.6);
-    flex:1 1 auto;
+
+/* Les petits traits avant et après le texte */
+.panneau-titre::before,
+.panneau-titre::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    rgba(255,255,255,0.15),
+    rgba(255,255,255,0.6),
+    rgba(255,255,255,0.15)
+  );
+  max-width: 150px; /* pour que le trait ne s’étende pas trop loin */
 }
+.panneau-titre span {
+  flex-shrink: 0;
+}
+
 .panneau-contenu {
     display: grid;
     grid-template-columns: 1fr;
@@ -117,7 +108,7 @@ h3 {
 /* Carte chapitre */
 .carte {
     position: relative;
-    border: 1px solid rgb(254, 92, 92);
+    border: 1.3px solid red;
     border-radius: 10px;
     padding: 0.8rem 0.8rem 0.9rem;
     background: black;
@@ -136,6 +127,14 @@ h3 {
     color: yellow;
     margin: 0 0 0.25rem 0;
     font-size: 1.15rem;
+}
+.carte {
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.carte.masquee {
+  opacity: 0;
+  transform: translateY(-12px);
+  pointer-events: none;
 }
 .meta {
     font-size: 0.92rem;
@@ -168,22 +167,205 @@ border-color: rgb(255, 255, 180);
 background: rgba(231, 210, 20, 0.063);
 }
 </style>
+
+<!-- Filtre des chapitres terminés -->
+<style>
+.filtre-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.5rem;
+  margin-bottom: -0.5rem;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.913);
+  user-select: none;
+}
+.filtre-container label {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+}
+/* Interrupteur effet "liquid glass" */
+.filtre-container input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 34.5px;
+  height: 16px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.25);
+  backdrop-filter: blur(6px) saturate(180%);
+  -webkit-backdrop-filter: blur(6px) saturate(180%);
+  position: relative;
+  cursor: pointer;
+  transition:
+    background 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+  box-shadow:
+    inset 0 0 6px rgba(255,255,255,0.1),
+    0 0 4px rgba(255,255,255,0.05);
+}
+/* La bille du toggle */
+.filtre-container input[type="checkbox"]::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.608);
+  box-shadow:
+    inset 0 0 4px rgba(255,255,255,0.4),
+    0 0 8px rgba(255,255,255,0.3);
+  transition:
+    transform 0.35s ease,
+    background 0.35s ease,
+    box-shadow 0.35s ease;
+}
+/* Survol du toggle */
+.filtre-container input[type="checkbox"]:hover {
+  border-color: rgba(255, 255, 255, 0.747);
+  box-shadow:
+    inset 0 0 8px rgba(255,255,255,0.1),
+    0 0 6px rgba(255,255,255,0.2);
+}
+/* État activé — effet rouge “liquid glass” */
+.filtre-container input[type="checkbox"]:checked {
+  background: rgba(255, 0, 0, 0.352);
+  border-color: rgb(255, 85, 85);
+  box-shadow:
+    inset 0 0 10px rgba(254, 92, 92, 0.3),
+    0 0 12px rgba(254, 92, 92, 0.4);
+}
+.filtre-container input[type="checkbox"]:checked::before {
+  transform: translateX(18.7px);
+  background: rgb(255, 82, 82);
+  box-shadow:
+    0 0 8px rgba(255, 82, 82, 0.473),
+    inset 0 0 4px rgba(255,255,255,0.3);
+}
+</style>
+<!-- Boutons -->
+<style>
+.btn-groupe {
+  display: inline-flex;
+  gap: 0.25rem;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.btn-retour {
+  display: inline-flex;               /* au lieu d’inline-block */
+  align-items: center;                /* centre verticalement le texte */
+  justify-content: center;            /* centre horizontalement */
+  padding: 0.08rem 0.6rem;
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.92);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95em;
+  font-family: 'Computer Modern Serif', serif;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(8px) saturate(180%);
+  -webkit-backdrop-filter: blur(8px) saturate(180%);
+  box-shadow:
+    inset 0 0 6px rgba(255,255,255,0.1),
+    0 0 4px rgba(255,255,255,0.05);
+  transition:
+    background 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.2s ease,
+    border-color 0.25s ease;
+}
+
+.btn-retour:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow:
+    inset 0 0 10px rgba(255,255,255,0.15),
+    0 0 10px rgba(255,255,255,0.1);
+  transform: translateY(0px);
+}
+
+.btn-retour:active {
+  transform: translateY(0);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow:
+    inset 0 0 8px rgba(255,255,255,0.1),
+    0 0 3px rgba(255,255,255,0.05);
+}
+.btn-retour sup {
+  font-size: 0.6em;
+  position: relative;
+  top: -0.35em; /* remonte l’exposant visuellement */
+}
+</style>
+<!-- Bannière hero -->
+<style>
+.hero {
+  position: relative;
+  width: 100%;
+  height: 120px; /* hauteur de la bannière */
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1em;
+}
+
+.hero-image {
+  height: 75%;
+  width: auto;
+  transform: translate(-0%, 4%);
+  object-fit: contain; /* pour que l’image remplisse bien le cadre */
+  opacity: 0.99; /* légère transparence pour lisibilité du texte */
+  filter: blur(0px) brightness(0.9); /* optionnel : effet “fondu” ou “assombri” */
+}
+
+.hero-title {
+  position: absolute; /* le remet au-dessus de l’image */
+  z-index: 2;
+  color: white;
+  font-family: 'Computer Modern Serif', serif;
+  font-size: 2.2em;
+  font-weight: 700;
+  text-align: center;
+  text-shadow: 0 0 8px rgba(0,0,0,0.6); /* lisibilité */
+}
+
+</style>
 </head>
 
 <body>
     <header>
-        <h1>Seconde</h1>
-        <nav class="retour-accueil" style="text-align: center;">
-            <a href="index.html" class="btn-retour">Accueil</a>
+        <div class="hero">
+            <img src="media/divers/tetraedre_noir.png" alt="" class="hero-image">
+            <h1 class="hero-title">Seconde</h1>
+        </div>
+        <nav style="text-align: center;">
+        <div class="btn-groupe">
+            <a href="index.html" class="btn-retour btn-retour-plein">Accueil</a>
+        </div>
         </nav>
     </header>
+
+    <div class="filtre-container">
+    <label>
+        <input type="checkbox" id="filtreTermines">
+        Masquer les chapitres terminés
+    </label>
+    </div>
     
     <main class="container">
         <!-- --------- Maths --------- -->
         <div class="panneau">
-        <h1 class="panneau-titre">Mathématiques</h1>
+        <!-- <h1 class="panneau-titre">Maths</h1> -->
         <div class="panneau-contenu">
-            <article class="carte">
+            <article class="carte" data-statut="termine">
                 <h3>Chapitre 1 : Fonctions affines & droites</h3>
                 <nav class="ressources" aria-label="Ressources chapitre 1">
                     <a class="chip" href="media/seconde/chap01/2nd_chap01.pdf">📚 Cours (complet)</a>
@@ -200,7 +382,7 @@ background: rgba(231, 210, 20, 0.063);
                 </nav>
             </article>
 
-            <article class="carte">
+            <article class="carte" data-statut="termine">
                 <h3>Chapitre 2 : Notion de vecteur</h3>
                 <nav class="ressources" aria-label="Ressources chapitre 2">
                     <a class="chip" href="media/seconde/chap02/2nd_chap02.pdf">📚 Cours (complet)</a>
@@ -217,7 +399,7 @@ background: rgba(231, 210, 20, 0.063);
                 </nav>
             </article>
 
-            <article class="carte">
+            <article class="carte" data-statut="encours">
                 <h3>Chapitre 3 : Ensembles de nombres</h3>
                 <nav class="ressources" aria-label="Ressources chapitre 1">
                     <a class="chip" href="media/seconde/chap03/2nd_chap03.pdf" target="_blank">📚 Cours (complet)</a>
@@ -232,7 +414,7 @@ background: rgba(231, 210, 20, 0.063);
         <div class="panneau">
         <h1 class="panneau-titre">Orientation</h1>
         <div class="panneau-contenu" style="display: block; margin: 1rem; text-align: center;">
-            <article class="carte">
+            <article class="carte" data-statut="encours">
               <h3>Affiches : filiège générale & technologique</h3>
                 <nav class="ressources" aria-label="Ressources orientation 1">
                     <a class="chip" href="media/seconde/divers/2nd_orientation.pdf">📋 Consignes affiche</a>
@@ -246,7 +428,8 @@ background: rgba(231, 210, 20, 0.063);
         <p>Aymé Petit &copy; ayme.petit@ac-creteil.fr</p>
     </footer>
 
-
+<!-- SCRIPTS -->
+<!-- MathJax -->
 <script>
 window.MathJax = {
   tex: {
@@ -260,6 +443,103 @@ window.MathJax = {
 };
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-svg.js" defer></script>
+
+<!-- Filtre & animations des cartes -->
+<script>
+(() => {
+  const toggle = document.getElementById('filtreTermines');
+  const conteneur = document.querySelector('.panneau-contenu');
+
+  if (!toggle || !conteneur) return;
+
+  function rectMap(elements) {
+    const map = new Map();
+    elements.forEach(el => map.set(el, el.getBoundingClientRect()));
+    return map;
+  }
+
+  function cloneGhost(el) {
+    const r = el.getBoundingClientRect();
+    const ghost = el.cloneNode(true);
+    const s = ghost.style;
+    s.position = 'fixed';
+    s.left = r.left + 'px';
+    s.top = r.top + 'px';
+    s.width = r.width + 'px';
+    s.height = r.height + 'px';
+    s.margin = 0;
+    s.zIndex = 1000;
+    s.pointerEvents = 'none';
+    s.boxSizing = 'border-box';
+    document.body.appendChild(ghost);
+
+    ghost.animate(
+      [
+        { opacity: 1, transform: 'translateY(0)' },
+        { opacity: 0, transform: 'translateY(-10px)' }
+      ],
+      { duration: 350, easing: 'ease' }
+    ).addEventListener('finish', () => ghost.remove());
+  }
+
+  function animateSlide(elements, firstRects, duration = 350) {
+    elements.forEach(el => {
+      const first = firstRects.get(el);
+      if (!first) return;
+      const last = el.getBoundingClientRect();
+      const dx = first.left - last.left;
+      const dy = first.top - last.top;
+      if (Math.abs(dx) < 1 && Math.abs(dy) < 1) return;
+
+      el.animate(
+        [
+          { transform: `translate(${dx}px, ${dy}px)` },
+          { transform: 'translate(0, 0)' }
+        ],
+        { duration, easing: 'ease' }
+      );
+    });
+  }
+
+  toggle.addEventListener('change', () => {
+    const cartesTerminees = Array.from(document.querySelectorAll('.carte[data-statut="termine"]'));
+    const cartesEnCours  = Array.from(document.querySelectorAll('.carte[data-statut="encours"]'));
+    const panneauTitres  = Array.from(document.querySelectorAll('.panneau-titre'));
+
+    const hideFinished = toggle.checked; // checked = masquer les terminées
+
+    // 1) On mémorise les positions AVANT pour les cartes "encours" et les titres
+    const elementsAnimables = [...cartesEnCours, ...panneauTitres];
+    const firstRects = rectMap(elementsAnimables);
+
+    if (hideFinished) {
+      // 2a) Retire du flux les terminées (mais affiche un fantôme qui s'efface)
+      cartesTerminees.forEach(c => {
+        cloneGhost(c);
+        c.style.display = 'none';
+      });
+
+      // 3a) Quand la grille se réorganise, anime les "encours" + titres
+      requestAnimationFrame(() => {
+        animateSlide(elementsAnimables, firstRects);
+      });
+
+    } else {
+      // 2b) Réaffiche les terminées
+      cartesTerminees.forEach(c => {
+        c.style.display = '';
+      });
+
+      // 3b) Anime à nouveau la transition des "encours" + titres
+      requestAnimationFrame(() => {
+        animateSlide(elementsAnimables, firstRects);
+      });
+    }
+  });
+})();
+</script>
+
+
 
 </body>
 </html>

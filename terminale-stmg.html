@@ -8,7 +8,7 @@
 <!-- Polices -->
 <link href="https://fonts.googleapis.com/css2?family=Computer+Modern+Serif&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
-
+<!-- Style des contenus -->
 <style>
 html {
     font-size: 18px;
@@ -18,7 +18,7 @@ body {
     min-height: calc(100dvh - 1em);
     display: flex;
     flex-direction: column;
-    padding: 0.8em;
+    padding: 0 0.8em 0em;
     background-color: black;
     color: white;
     font-family: 'Computer Modern Serif', serif;
@@ -41,34 +41,6 @@ h1, h2, h3 {
 }
 h3 {
     font-weight: 300;
-}
-.btn-groupe {
-    display: inline-flex;
-    border-radius: 8px;
-    overflow: hidden;
-}
-.btn-retour {
-    display: inline-block;
-    padding: 0.3rem 0.5rem;
-    border: 1px solid rgba(255,255,255,0.25);
-    border-radius: 8px;
-    color: white;
-    text-decoration: none;
-    font-weight: 600;
-    font-family: 'Computer Modern Serif', serif;
-    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
-}
-.btn-left {
-    border-radius: 8px 0 0 8px;
-}
-.btn-right {
-    border-radius: 0 8px 8px 0;
-    border-left: none;
-}
-.btn-retour:hover {
-    border-color: rgba(255,255,255,0.5);
-    background-color: rgba(255,255,255,0.08);
-    transform: translateY(-1px);
 }
 .container {
     max-width: 1200px;
@@ -146,6 +118,14 @@ h3 {
     margin: 0 0 0.25rem 0;
     font-size: 1.15rem;
 }
+.carte {
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.carte.masquee {
+  opacity: 0;
+  transform: translateY(-12px);
+  pointer-events: none;
+}
 .meta {
     font-size: 0.92rem;
     opacity: 0.9;
@@ -177,25 +157,206 @@ border-color: rgb(255, 255, 180);
 background: rgba(231, 210, 20, 0.063);
 }
 </style>
+
+<!-- Filtre des chapitres terminés -->
+<style>
+.filtre-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.5rem;
+  margin-bottom: -0.5rem;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.913);
+  user-select: none;
+}
+.filtre-container label {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+}
+/* Interrupteur effet "liquid glass" */
+.filtre-container input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 34.5px;
+  height: 16px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.25);
+  backdrop-filter: blur(6px) saturate(180%);
+  -webkit-backdrop-filter: blur(6px) saturate(180%);
+  position: relative;
+  cursor: pointer;
+  transition:
+    background 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+  box-shadow:
+    inset 0 0 6px rgba(255,255,255,0.1),
+    0 0 4px rgba(255,255,255,0.05);
+}
+/* La bille du toggle */
+.filtre-container input[type="checkbox"]::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.608);
+  box-shadow:
+    inset 0 0 4px rgba(255,255,255,0.4),
+    0 0 8px rgba(255,255,255,0.3);
+  transition:
+    transform 0.35s ease,
+    background 0.35s ease,
+    box-shadow 0.35s ease;
+}
+/* Survol du toggle */
+.filtre-container input[type="checkbox"]:hover {
+  border-color: rgba(255, 255, 255, 0.747);
+  box-shadow:
+    inset 0 0 8px rgba(255,255,255,0.1),
+    0 0 6px rgba(255,255,255,0.2);
+}
+/* État activé — effet “liquid glass” */
+.filtre-container input[type="checkbox"]:checked {
+  background: rgba(255, 166, 0, 0.35);
+  border-color: rgb(255, 194, 81);
+  box-shadow:
+    inset 0 0 10px rgba(254, 92, 92, 0.3),
+    0 0 12px rgba(254, 92, 92, 0.4);
+}
+.filtre-container input[type="checkbox"]:checked::before {
+  transform: translateX(18.7px);
+  background: rgba(255, 184, 54, 0.915);
+  box-shadow:
+    0 0 8px rgba(255, 166, 0, 0.351),
+    inset 0 0 4px rgba(255,255,255,0.3);
+}
+</style>
+<!-- Boutons -->
+<style>
+.btn-groupe {
+  display: inline-flex;
+  gap: 0.25rem;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.btn-retour {
+  display: inline-flex;               /* au lieu d’inline-block */
+  align-items: center;                /* centre verticalement le texte */
+  justify-content: center;            /* centre horizontalement */
+  padding: 0.08rem 0.6rem;
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.92);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95em;
+  font-family: 'Computer Modern Serif', serif;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(8px) saturate(180%);
+  -webkit-backdrop-filter: blur(8px) saturate(180%);
+  box-shadow:
+    inset 0 0 6px rgba(255,255,255,0.1),
+    0 0 4px rgba(255,255,255,0.05);
+  transition:
+    background 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.2s ease,
+    border-color 0.25s ease;
+}
+
+.btn-retour:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow:
+    inset 0 0 10px rgba(255,255,255,0.15),
+    0 0 10px rgba(255,255,255,0.1);
+  transform: translateY(0px);
+}
+
+.btn-retour:active {
+  transform: translateY(0);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow:
+    inset 0 0 8px rgba(255,255,255,0.1),
+    0 0 3px rgba(255,255,255,0.05);
+}
+.btn-retour sup {
+  font-size: 0.6em;
+  position: relative;
+  top: -0.35em; /* remonte l’exposant visuellement */
+}
+</style>
+<!-- Bannière hero -->
+<style>
+.hero {
+  position: relative;
+  width: 100%;
+  height: 120px; /* hauteur de la bannière */
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1em;
+}
+
+.hero-image {
+  height: 70%;
+  width: auto;
+  transform: translate(-0%, 4%);
+  object-fit: contain; /* pour que l’image remplisse bien le cadre */
+  opacity: 0.99; /* légère transparence pour lisibilité du texte */
+  filter: blur(0px) brightness(1); /* optionnel : effet “fondu” ou “assombri” */
+}
+
+.hero-title {
+  position: absolute; /* le remet au-dessus de l’image */
+  z-index: 2;
+  color: white;
+  font-family: 'Computer Modern Serif', serif;
+  font-size: 2.2em;
+  font-weight: 700;
+  text-align: center;
+  text-shadow: 0 0 8px rgba(0,0,0,0.6); /* lisibilité */
+}
+
+</style>
 </head>
 
 <body>
     <header>
-        <h1>Terminale STMG</h1>
+        <div class="hero">
+            <img src="media/divers/icosaedre_noir.png" alt="" class="hero-image">
+            <h1 class="hero-title">Terminale STMG</h1>
+        </div>
         <nav style="text-align: center;">
         <div class="btn-groupe">
-            <a href="index.html" class="btn-retour btn-left">Accueil</a>
-            <a href="terminale.html" class="btn-retour btn-right">Filières de Term</a>
+            <a href="index.html" class="btn-retour btn-retour-plein">Accueil</a>
+            <a href="terminale.html" class="btn-retour btn-retour-contour">Filières de Term</a>
         </div>
         </nav>
     </header>
+
+    <div class="filtre-container">
+    <label>
+        <input type="checkbox" id="filtreTermines">
+        Masquer les chapitres terminés
+    </label>
+    </div>
 
     <main class="container">
         <!-- --------- Maths --------- -->
         <div class="panneau">
         <!-- <h1 class="panneau-titre">Mathématiques</h1> -->
         <div class="panneau-contenu">
-            <article class="carte">
+            <article class="carte" data-statut="termine">
                 <h3>Chapitre 1 : Statistiques</h3>
                 <nav class="ressources" aria-label="Ressources chapitre 1">
                     <a class="chip" href="media/terminale_stmg/chap01/termS_chap01.pdf">📚 Cours (complet)</a>
@@ -206,7 +367,7 @@ background: rgba(231, 210, 20, 0.063);
                 </nav>
             </article>
 
-            <article class="carte">
+            <article class="carte" data-statut="encours">
                 <h3>Chapitre 2 : Fonction inverse</h3>
                 <nav class="ressources" aria-label="Ressources chapitre 1">
                     <a class="chip" href="media/terminale_stmg/chap02/termS_chap02.pdf">📚 Cours (06/10)</a>
@@ -243,5 +404,100 @@ window.MathJax = {
 };
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-svg.js" defer></script>
+
+<!-- Filtre & animations des cartes -->
+<script>
+(() => {
+  const toggle = document.getElementById('filtreTermines');
+  const conteneur = document.querySelector('.panneau-contenu');
+
+  if (!toggle || !conteneur) return;
+
+  function rectMap(elements) {
+    const map = new Map();
+    elements.forEach(el => map.set(el, el.getBoundingClientRect()));
+    return map;
+  }
+
+  function cloneGhost(el) {
+    const r = el.getBoundingClientRect();
+    const ghost = el.cloneNode(true);
+    const s = ghost.style;
+    s.position = 'fixed';
+    s.left = r.left + 'px';
+    s.top = r.top + 'px';
+    s.width = r.width + 'px';
+    s.height = r.height + 'px';
+    s.margin = 0;
+    s.zIndex = 1000;
+    s.pointerEvents = 'none';
+    // évite que des styles internes modifient le layout du clone
+    s.boxSizing = 'border-box';
+    document.body.appendChild(ghost);
+
+    ghost.animate(
+      [
+        { opacity: 1, transform: 'translateY(0)' },
+        { opacity: 0, transform: 'translateY(-10px)' }
+      ],
+      { duration: 350, easing: 'ease' }
+    ).addEventListener('finish', () => ghost.remove());
+  }
+
+  function animateSlide(elements, firstRects, duration = 350) {
+    elements.forEach(el => {
+      const first = firstRects.get(el);
+      if (!first) return;
+      const last = el.getBoundingClientRect();
+      const dx = first.left - last.left;
+      const dy = first.top - last.top;
+      if (Math.abs(dx) < 1 && Math.abs(dy) < 1) return;
+
+      el.animate(
+        [
+          { transform: `translate(${dx}px, ${dy}px)` },
+          { transform: 'translate(0, 0)' }
+        ],
+        { duration, easing: 'ease' }
+      );
+    });
+  }
+
+  toggle.addEventListener('change', () => {
+    const cartesTerminees = Array.from(document.querySelectorAll('.carte[data-statut="termine"]'));
+    const cartesEnCours  = Array.from(document.querySelectorAll('.carte[data-statut="encours"]'));
+
+    const hideFinished = toggle.checked; // checked = masquer les terminées
+
+    // 1) Positions AVANT pour les cartes qui vont rester (encours)
+    const firstRects = rectMap(cartesEnCours);
+
+    if (hideFinished) {
+      // 2a) On retire du flux tout de suite les terminées (pour forcer la compaction)
+      //     mais on lance un clone fantôme qui s'efface pour l'effet visuel.
+      cartesTerminees.forEach(c => {
+        cloneGhost(c);
+        c.style.display = 'none';
+      });
+
+      // 3a) Prochain frame : la grille s'est compactée -> on anime le slide des "encours"
+      requestAnimationFrame(() => {
+        animateSlide(cartesEnCours, firstRects);
+      });
+
+    } else {
+      // 2b) Réapparition : on remet les terminées dans le flux d'abord…
+      cartesTerminees.forEach(c => {
+        c.style.display = '';
+      });
+
+      // 3b) …puis on anime le glissement des "encours" vers leurs nouvelles places
+      requestAnimationFrame(() => {
+        animateSlide(cartesEnCours, firstRects);
+      });
+    }
+  });
+})();
+</script>
 </body>
 </html>

@@ -19,7 +19,7 @@ body {
     min-height: calc(100dvh - 1em);
     display: flex;
     flex-direction: column;
-    padding: 0 0.8em 0.8em; /* ← top = 0, right = 0.8em, bottom = 0.8em, left = 0.8em */
+    padding: 0 0.8em 0em; /* ← top = 0, right = 0.8em, bottom = 0.8em, left = 0.8em */
     background-color: black;
     color: white;
     font-family: 'Computer Modern Serif', serif;
@@ -119,17 +119,14 @@ h3 {
     margin: 0 0 0.25rem 0;
     font-size: 1.15rem;
 }
-/* Transition de disparition fluide pour les cartes terminées */
 .carte {
   transition: opacity 0.4s ease, transform 0.4s ease;
 }
-
 .carte.masquee {
   opacity: 0;
   transform: translateY(-12px);
   pointer-events: none;
 }
-
 .meta {
     font-size: 0.92rem;
     opacity: 0.9;
@@ -242,7 +239,6 @@ background: rgba(231, 210, 20, 0.063);
     inset 0 0 4px rgba(255,255,255,0.3);
 }
 </style>
-
 <!-- Boutons -->
 <style>
 .btn-groupe {
@@ -299,7 +295,6 @@ background: rgba(231, 210, 20, 0.063);
   top: -0.35em; /* remonte l’exposant visuellement */
 }
 </style>
-
 <!-- Bannière hero -->
 <style>
 .hero {
@@ -423,6 +418,8 @@ window.MathJax = {
     svg: { fontCache: 'global' }
 };
 </script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-svg.js" defer></script>
+
 <!-- Filtre & animations des cartes -->
 <script>
 (() => {
@@ -518,9 +515,5 @@ window.MathJax = {
 })();
 </script>
 
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-svg.js" defer></script>
 </body>
 </html>

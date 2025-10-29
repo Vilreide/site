@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Computer+Modern+Serif&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
 
+<!-- Style des contenus -->
 <style>
 html {
     font-size: 18px;
@@ -18,7 +19,7 @@ body {
     min-height: calc(100dvh - 1em);
     display: flex;
     flex-direction: column;
-    padding: 0.8em;
+    padding: 0 0.8em 0.8em; /* ← top = 0, right = 0.8em, bottom = 0.8em, left = 0.8em */
     background-color: black;
     color: white;
     font-family: 'Computer Modern Serif', serif;
@@ -41,34 +42,6 @@ h1, h2, h3 {
 }
 h3 {
     font-weight: 300;
-}
-.btn-groupe {
-    display: inline-flex;
-    border-radius: 8px;
-    overflow: hidden;
-}
-.btn-retour {
-    display: inline-block;
-    padding: 0.3rem 0.5rem;
-    border: 1.5px solid rgba(255,255,255,0.25);
-    border-radius: 8px;
-    color: white;
-    text-decoration: none;
-    font-weight: 600;
-    font-family: 'Computer Modern Serif', serif;
-    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
-}
-.btn-left {
-    border-radius: 8px 0 0 8px;
-}
-.btn-right {
-    border-radius: 0 8px 8px 0;
-    border-left: none;
-}
-.btn-retour:hover {
-    border-color: rgba(255,255,255,0.5);
-    background-color: rgba(255,255,255,0.08);
-    transform: translateY(-1px);
 }
 .container {
     max-width: 1200px;
@@ -146,6 +119,17 @@ h3 {
     margin: 0 0 0.25rem 0;
     font-size: 1.15rem;
 }
+/* Transition de disparition fluide pour les cartes terminées */
+.carte {
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.carte.masquee {
+  opacity: 0;
+  transform: translateY(-12px);
+  pointer-events: none;
+}
+
 .meta {
     font-size: 0.92rem;
     opacity: 0.9;
@@ -176,33 +160,32 @@ color: rgb(255, 255, 180);
 border-color: rgb(255, 255, 180);
 background: rgba(231, 210, 20, 0.063);
 }
-/* --- Filtre des chapitres terminés --- */
+</style>
+
+<!-- Filtre des chapitres terminés -->
+<style>
 .filtre-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: 1rem;
   margin-top: 0.5rem;
   margin-bottom: -0.5rem;
   font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.913);
   user-select: none;
 }
-
-/* Label pour l'alignement */
 .filtre-container label {
   display: flex;
   align-items: center;
   gap: 0.6rem;
   cursor: pointer;
 }
-
 /* Interrupteur effet "liquid glass" */
 .filtre-container input[type="checkbox"] {
   appearance: none;
   -webkit-appearance: none;
-  width: 30px;
-  height: 15px;
+  width: 34.5px;
+  height: 16px;
   border-radius: 999px;
   background: rgba(255,255,255,0.05);
   border: 1px solid rgba(255,255,255,0.25);
@@ -218,17 +201,16 @@ background: rgba(231, 210, 20, 0.063);
     inset 0 0 6px rgba(255,255,255,0.1),
     0 0 4px rgba(255,255,255,0.05);
 }
-
 /* La bille du toggle */
 .filtre-container input[type="checkbox"]::before {
   content: "";
   position: absolute;
   top: 2px;
   left: 2px;
-  width: 9px;
-  height: 9px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.8);
+  background: rgba(255, 255, 255, 0.608);
   box-shadow:
     inset 0 0 4px rgba(255,255,255,0.4),
     0 0 8px rgba(255,255,255,0.3);
@@ -237,7 +219,6 @@ background: rgba(231, 210, 20, 0.063);
     background 0.35s ease,
     box-shadow 0.35s ease;
 }
-
 /* Survol du toggle */
 .filtre-container input[type="checkbox"]:hover {
   border-color: rgba(255, 255, 255, 0.747);
@@ -245,57 +226,126 @@ background: rgba(231, 210, 20, 0.063);
     inset 0 0 8px rgba(255,255,255,0.1),
     0 0 6px rgba(255,255,255,0.2);
 }
-
 /* État activé — effet rouge “liquid glass” */
 .filtre-container input[type="checkbox"]:checked {
-  background: rgba(255, 90, 90, 0.25);
-  border-color: rgba(254, 92, 92, 0.6);
+  background: rgba(104, 104, 253, 0.358);
+  border-color: rgb(169, 160, 255);
   box-shadow:
     inset 0 0 10px rgba(254, 92, 92, 0.3),
     0 0 12px rgba(254, 92, 92, 0.4);
 }
-
 .filtre-container input[type="checkbox"]:checked::before {
-  transform: translateX(15.5px);
-  background: rgba(255, 110, 110, 0.85);
+  transform: translateX(18.7px);
+  background: rgb(128, 128, 255);
   box-shadow:
-    0 0 8px rgba(254, 92, 92, 0.6),
+    0 0 8px rgba(104, 104, 253, 0.358),
     inset 0 0 4px rgba(255,255,255,0.3);
 }
+</style>
 
+<!-- Boutons -->
+<style>
+.btn-groupe {
+  display: inline-flex;
+  gap: 0.25rem;
+  border-radius: 999px;
+  overflow: hidden;
+}
 
+.btn-retour {
+  display: inline-flex;               /* au lieu d’inline-block */
+  align-items: center;                /* centre verticalement le texte */
+  justify-content: center;            /* centre horizontalement */
+  padding: 0.08rem 0.6rem;
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.92);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95em;
+  font-family: 'Computer Modern Serif', serif;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(8px) saturate(180%);
+  -webkit-backdrop-filter: blur(8px) saturate(180%);
+  box-shadow:
+    inset 0 0 6px rgba(255,255,255,0.1),
+    0 0 4px rgba(255,255,255,0.05);
+  transition:
+    background 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.2s ease,
+    border-color 0.25s ease;
+}
 
+.btn-retour:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow:
+    inset 0 0 10px rgba(255,255,255,0.15),
+    0 0 10px rgba(255,255,255,0.1);
+  transform: translateY(0px);
+}
 
+.btn-retour:active {
+  transform: translateY(0);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow:
+    inset 0 0 8px rgba(255,255,255,0.1),
+    0 0 3px rgba(255,255,255,0.05);
+}
+.btn-retour sup {
+  font-size: 0.6em;
+  position: relative;
+  top: -0.35em; /* remonte l’exposant visuellement */
+}
+</style>
 
-/* .filtre-container {
+<!-- Bannière hero -->
+<style>
+.hero {
+  position: relative;
+  width: 100%;
+  height: 120px; /* hauteur de la bannière */
+  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: 1rem;
-  margin-top: 0.5rem;
-  margin-bottom: -0.5rem;
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 1em;
 }
-.filtre-container label {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
+
+.hero-image {
+  height: 75%;
+  width: auto;
+  transform: translate(-0%, 4%);
+  object-fit: contain; /* pour que l’image remplisse bien le cadre */
+  opacity: 0.99; /* légère transparence pour lisibilité du texte */
+  filter: blur(0px) brightness(0.9); /* optionnel : effet “fondu” ou “assombri” */
 }
-.filtre-container input[type="checkbox"] {
-  accent-color: rgb(254, 92, 92);
-  transform: scale(1.1);
-} */
+
+.hero-title {
+  position: absolute; /* le remet au-dessus de l’image */
+  z-index: 2;
+  color: white;
+  font-family: 'Computer Modern Serif', serif;
+  font-size: 2.2em;
+  font-weight: 700;
+  text-align: center;
+  text-shadow: 0 0 8px rgba(0,0,0,0.6); /* lisibilité */
+}
+
 </style>
 </head>
 
 <body>
     <header>
-        <h1>Première Spé</h1>
+        <div class="hero">
+            <img src="media/divers/cube_noir.jpg" alt="" class="hero-image">
+            <h1 class="hero-title">Première Spé</h1>
+        </div>
         <nav style="text-align: center;">
         <div class="btn-groupe">
-            <a href="index.html" class="btn-retour btn-left">Accueil</a>
-            <a href="premiere.html" class="btn-retour btn-right">Filières de 1<sup style="font-size: 0.7em;">e</sup></a>
+            <a href="index.html" class="btn-retour btn-retour-plein">Accueil</a>
+            <a href="premiere.html" class="btn-retour btn-retour-contour">Filières de 1<sup>e</sup></a>
         </div>
         </nav>
     </header>
@@ -373,16 +423,104 @@ window.MathJax = {
     svg: { fontCache: 'global' }
 };
 </script>
-<!-- Bouton -->
+<!-- Filtre & animations des cartes -->
 <script>
-document.getElementById('filtreTermines').addEventListener('change', function() {
-  const cartes = document.querySelectorAll('.carte');
-  cartes.forEach(carte => {
-    const estTermine = carte.dataset.statut === 'termine';
-    carte.style.display = (this.checked && estTermine) ? 'none' : '';
+(() => {
+  const toggle = document.getElementById('filtreTermines');
+  const conteneur = document.querySelector('.panneau-contenu');
+
+  if (!toggle || !conteneur) return;
+
+  function rectMap(elements) {
+    const map = new Map();
+    elements.forEach(el => map.set(el, el.getBoundingClientRect()));
+    return map;
+  }
+
+  function cloneGhost(el) {
+    const r = el.getBoundingClientRect();
+    const ghost = el.cloneNode(true);
+    const s = ghost.style;
+    s.position = 'fixed';
+    s.left = r.left + 'px';
+    s.top = r.top + 'px';
+    s.width = r.width + 'px';
+    s.height = r.height + 'px';
+    s.margin = 0;
+    s.zIndex = 1000;
+    s.pointerEvents = 'none';
+    // évite que des styles internes modifient le layout du clone
+    s.boxSizing = 'border-box';
+    document.body.appendChild(ghost);
+
+    ghost.animate(
+      [
+        { opacity: 1, transform: 'translateY(0)' },
+        { opacity: 0, transform: 'translateY(-10px)' }
+      ],
+      { duration: 350, easing: 'ease' }
+    ).addEventListener('finish', () => ghost.remove());
+  }
+
+  function animateSlide(elements, firstRects, duration = 350) {
+    elements.forEach(el => {
+      const first = firstRects.get(el);
+      if (!first) return;
+      const last = el.getBoundingClientRect();
+      const dx = first.left - last.left;
+      const dy = first.top - last.top;
+      if (Math.abs(dx) < 1 && Math.abs(dy) < 1) return;
+
+      el.animate(
+        [
+          { transform: `translate(${dx}px, ${dy}px)` },
+          { transform: 'translate(0, 0)' }
+        ],
+        { duration, easing: 'ease' }
+      );
+    });
+  }
+
+  toggle.addEventListener('change', () => {
+    const cartesTerminees = Array.from(document.querySelectorAll('.carte[data-statut="termine"]'));
+    const cartesEnCours  = Array.from(document.querySelectorAll('.carte[data-statut="encours"]'));
+
+    const hideFinished = toggle.checked; // checked = masquer les terminées
+
+    // 1) Positions AVANT pour les cartes qui vont rester (encours)
+    const firstRects = rectMap(cartesEnCours);
+
+    if (hideFinished) {
+      // 2a) On retire du flux tout de suite les terminées (pour forcer la compaction)
+      //     mais on lance un clone fantôme qui s'efface pour l'effet visuel.
+      cartesTerminees.forEach(c => {
+        cloneGhost(c);
+        c.style.display = 'none';
+      });
+
+      // 3a) Prochain frame : la grille s'est compactée -> on anime le slide des "encours"
+      requestAnimationFrame(() => {
+        animateSlide(cartesEnCours, firstRects);
+      });
+
+    } else {
+      // 2b) Réapparition : on remet les terminées dans le flux d'abord…
+      cartesTerminees.forEach(c => {
+        c.style.display = '';
+      });
+
+      // 3b) …puis on anime le glissement des "encours" vers leurs nouvelles places
+      requestAnimationFrame(() => {
+        animateSlide(cartesEnCours, firstRects);
+      });
+    }
   });
-});
+})();
 </script>
+
+
+
+
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-svg.js" defer></script>
 </body>
 </html>

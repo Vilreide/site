@@ -302,6 +302,48 @@ background: rgba(231, 210, 20, 0.063);
   margin-bottom: 1em;
 }
 
+.hero-images {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 11.9rem; /* espace entre les deux images, modifiable */
+  height: 70%;
+  width: 100%;
+  transform: translate(-0%, 6%);
+}
+
+.hero-image {
+  height: 100%;
+  width: auto;
+  object-fit: cover;
+  opacity: 1;
+  filter: brightness(1.07);
+}
+
+.hero-title {
+  position: absolute;
+  z-index: 2;
+  color: white;
+  font-family: 'Computer Modern Serif', serif;
+  font-size: 2.2em;
+  font-weight: 700;
+  text-align: center;
+  text-shadow: 0 0 8px rgba(0,0,0,0.6);
+}
+
+</style>
+<!-- <style>
+.hero {
+  position: relative;
+  width: 100%;
+  height: 120px; /* hauteur de la bannière */
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1em;
+}
+
 .hero-image {
   height: 70%;
   width: auto;
@@ -322,11 +364,27 @@ background: rgba(231, 210, 20, 0.063);
   text-shadow: 0 0 8px rgba(0,0,0,0.6); /* lisibilité */
 }
 
-</style>
+</style> -->
 </head>
 
 <body>
     <header>
+        <div class="hero">
+            <h1 class="hero-title">Terminale STMG</h1>
+            <div class="hero-images">
+            <img src="media/divers/ico_gauche.jpg" alt="" class="hero-image">
+            <img src="media/divers/ico_droit.JPG" alt="" class="hero-image">
+            </div>
+        </div>
+
+        <nav style="text-align: center;">
+            <div class="btn-groupe">
+            <a href="index.html" class="btn-retour btn-retour-plein">Accueil</a>
+            <a href="terminale.html" class="btn-retour btn-retour-contour">Filières de Term</a>
+            </div>
+        </nav>
+    </header>
+    <!-- <header>
         <div class="hero">
             <img src="media/divers/icosaedre_noir.png" alt="" class="hero-image">
             <h1 class="hero-title">Terminale STMG</h1>
@@ -337,7 +395,7 @@ background: rgba(231, 210, 20, 0.063);
             <a href="terminale.html" class="btn-retour btn-retour-contour">Filières de Term</a>
         </div>
         </nav>
-    </header>
+    </header> -->
 
     <div class="filtre-container">
     <label>

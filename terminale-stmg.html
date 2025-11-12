@@ -385,76 +385,64 @@ background: rgba(231, 210, 20, 0.063);
 </head>
 
 <body>
-    <header>
-        <div class="hero">
-            <h1 class="hero-title">Terminale STMG</h1>
-            <div class="hero-images">
-            <img src="media/divers/ico_gauche.jpg" alt="" class="hero-image">
-            <img src="media/divers/ico_droit.JPG" alt="" class="hero-image">
-            </div>
-        </div>
+  <header>
+      <div class="hero">
+          <h1 class="hero-title">Terminale STMG</h1>
+          <div class="hero-images">
+          <img src="media/divers/ico_gauche.jpg" alt="" class="hero-image">
+          <img src="media/divers/ico_droit.JPG" alt="" class="hero-image">
+          </div>
+      </div>
 
-        <nav style="text-align: center;">
-            <div class="btn-groupe">
-            <a href="index.html" class="btn-retour btn-retour-plein">Accueil</a>
-            <a href="terminale.html" class="btn-retour btn-retour-contour">Filières de Term</a>
-            </div>
-        </nav>
-    </header>
-    <!-- <header>
-        <div class="hero">
-            <img src="media/divers/icosaedre_noir.png" alt="" class="hero-image">
-            <h1 class="hero-title">Terminale STMG</h1>
-        </div>
-        <nav style="text-align: center;">
-        <div class="btn-groupe">
-            <a href="index.html" class="btn-retour btn-retour-plein">Accueil</a>
-            <a href="terminale.html" class="btn-retour btn-retour-contour">Filières de Term</a>
-        </div>
-        </nav>
-    </header> -->
+      <nav style="text-align: center;">
+          <div class="btn-groupe">
+          <a href="index.html" class="btn-retour btn-retour-plein">Accueil</a>
+          <a href="terminale.html" class="btn-retour btn-retour-contour">Filières de Term</a>
+          </div>
+      </nav>
+  </header>
 
-    <div class="filtre-container">
-    <label>
-        <input type="checkbox" id="filtreTermines">
-        Masquer les chapitres terminés
-    </label>
+  <div class="filtre-container">
+  <label>
+      <input type="checkbox" id="filtreTermines">
+      Masquer les chapitres terminés
+  </label>
+  </div>
+
+  <main class="container">
+    <!-- --------- Maths --------- -->
+    <div class="panneau">
+    <!-- <h1 class="panneau-titre">Mathématiques</h1> -->
+    <div class="panneau-contenu">
+      <article class="carte" data-statut="termine">
+        <h3>Chapitre 1 : Statistiques</h3>
+        <nav class="ressources" aria-label="Ressources chapitre 1">
+          <a class="chip" href="media/terminale_stmg/chap01/termS_chap01.pdf">📚 Cours (complet)</a>
+          <a class="chip" href="media/terminale_stmg/chap01/termS_chap01_exos01.pdf">⭐ Exercices</a>
+          <a class="chip" href="media/terminale_stmg/chap01/point_moyen.mp4">🎬 Point moyen</a>
+          <a class="chip" href="media/terminale_stmg/chap01/mayer.mp4">🎬 Droite de Mayer</a>
+          <!-- <a class="chip" href="media/terminale_stmg/chap01/moindres_carres.mp4">🎦 Droite des moindres carrés</a> -->
+        </nav>
+      </article>
+
+      <article class="carte" data-statut="encours">
+        <h3>Chapitre 2 : Fonction inverse</h3>
+        <nav class="ressources" aria-label="Ressources chapitre 1">
+          <a class="chip" href="media/terminale_stmg/chap02/termS_chap02.pdf">📚 Cours (complet)</a>
+          <a class="chip" href="media/terminale_stmg/chap02/termS_chap02_exos.pdf">⭐ Exercices</a>
+          <a class="chip" href="media/terminale_stmg/chap02/termS_chap02_exos_correction.pdf" target="_blank">🌿 Exo. corrigés (1-4)</a>
+          <a class="chip" href="media/terminale_stmg/chap02/cone_hyperbole.mp4">🎬 Cône</a>
+          <a class="chip" href="media/terminale_stmg/chap02/courbe.mp4">🎬 Courbe de &nbsp;$x\mapsto\frac{1}{x}$</a>
+          <a class="chip" href="https://mathlive.fr/auth/student/?sessionCode=147183" target="_blank" style="width: 105px;">
+              <img src="media/divers/mathlive3.jpeg" style="width: 20%;">&nbsp; Mathlive
+          </a>
+        </nav>
+      </article>
+    </div>
     </div>
 
-    <main class="container">
-        <!-- --------- Maths --------- -->
-        <div class="panneau">
-        <!-- <h1 class="panneau-titre">Mathématiques</h1> -->
-        <div class="panneau-contenu">
-            <article class="carte" data-statut="termine">
-                <h3>Chapitre 1 : Statistiques</h3>
-                <nav class="ressources" aria-label="Ressources chapitre 1">
-                    <a class="chip" href="media/terminale_stmg/chap01/termS_chap01.pdf">📚 Cours (complet)</a>
-                    <a class="chip" href="media/terminale_stmg/chap01/termS_chap01_exos01.pdf">⭐ Exercices</a>
-                    <a class="chip" href="media/terminale_stmg/chap01/point_moyen.mp4">🎬 Point moyen</a>
-                    <a class="chip" href="media/terminale_stmg/chap01/mayer.mp4">🎬 Droite de Mayer</a>
-                    <!-- <a class="chip" href="media/terminale_stmg/chap01/moindres_carres.mp4">🎦 Droite des moindres carrés</a> -->
-                </nav>
-            </article>
-
-            <article class="carte" data-statut="encours">
-                <h3>Chapitre 2 : Fonction inverse</h3>
-                <nav class="ressources" aria-label="Ressources chapitre 1">
-                    <a class="chip" href="media/terminale_stmg/chap02/termS_chap02.pdf">📚 Cours (06/10)</a>
-                    <a class="chip" href="media/terminale_stmg/chap02/termS_chap02_exos.pdf">⭐ Exercices</a>
-                    <a class="chip" href="media/terminale_stmg/chap02/termS_chap02_exos_correction.pdf" target="_blank">🌿 Exo. corrigés (1-3)</a>
-                    <a class="chip" href="media/terminale_stmg/chap02/cone_hyperbole.mp4">🎬 Cône</a>
-                    <a class="chip" href="media/terminale_stmg/chap02/courbe.mp4">🎬 Courbe de &nbsp;$x\mapsto\frac{1}{x}$</a>
-                    <a class="chip" href="https://mathlive.fr/auth/student/?sessionCode=147183" target="_blank" style="width: 105px;">
-                        <img src="media/divers/mathlive3.jpeg" style="width: 20%;">&nbsp; Mathlive
-                    </a>
-                </nav>
-            </article>
-        </div>
-        </div>
-
-        <!-- --------- Programmation ? --------- -->
-    </main>
+    <!-- --------- Programmation ? --------- -->
+  </main>
 
     <footer>
         <p>&copy; Aymé Petit</p>

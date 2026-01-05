@@ -13,6 +13,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Computer+Modern+Serif&display=swap" rel="stylesheet">
 
 <style>
+  
 html {
     font-size: 18px;
     min-height: calc(100dvh - 1em);
@@ -59,6 +60,100 @@ h1, h2, h3 {
 h3 {
     font-weight: 300;
 }
+
+/* BONNE ANNEEEEEEEEEEEEEEEEEEE */
+.bonne-annee {
+    position: relative;
+    text-align: center;
+    font-weight: 100;
+    font-size: 1.3em;
+}
+.bonne-annee .texte {
+    position: relative;
+    display: inline-block; /* 👈 épouse EXACTEMENT le texte */
+}
+.bonne-annee::before {
+    content: "";
+    position: absolute;
+    display: block;
+
+    left: 50%;
+    top: 50%;
+
+    width: 15rem;
+    height: 4rem;
+
+    background: radial-gradient(
+        ellipse at center,
+        rgba(212, 175, 55, 0.35) 0%,
+        rgba(212, 175, 55, 0.18) 35%,
+        rgba(212, 175, 55, 0.08) 55%,
+        transparent 75%
+    );
+
+    transform: translate(-50%, -50%) scale(0.9);
+    opacity: 0.4;
+
+    animation: onde-doree 2.5s ease-in-out infinite alternate;
+    pointer-events: none;
+}
+
+@keyframes onde-doree {
+    from {
+        transform: translate(-50%, -50%) scale(0.85);
+        opacity: 0.3;
+    }
+    to {
+        transform: translate(-50%, -50%) scale(1.4);
+        opacity: 0.6;
+    }
+}
+.bonne-annee .texte::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+
+    background: rgba(212, 175, 55, 0.9);
+
+    box-shadow:
+    -36px -10px rgba(212,175,55,0.7),
+    -20px   8px rgba(212,175,55,0.5),
+     -6px -14px rgba(212,175,55,0.8),
+     10px  12px rgba(212,175,55,0.6),
+     26px  -6px rgba(212,175,55,0.5),
+     42px   6px rgba(212,175,55,0.4);
+
+    transform: translate(-50%, -50%) scale(0.4);
+    opacity: 0;
+
+    animation: etoiles-texte 2.5s ease-out infinite;
+    pointer-events: none;
+}
+@keyframes etoiles-texte {
+    0% {
+        transform: translate(-50%, -50%) scale(0.6);
+        opacity: 0;
+    }
+    20% {
+        opacity: 1;
+    }
+    60% {
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 0.4;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1.6);
+        opacity: 0;
+    }
+}
+
+
+
 .menu-niveaux {
     display: flex;
     gap: 1.5rem;
@@ -165,6 +260,10 @@ h3 {
         <h1 style="margin-bottom: -0.8em;">Aymé Petit</h1>
         <h3>Lycée Marcelin Berthelot</h3>
     </header>
+    
+    <section class="bonne-annee">
+        <span class="texte">⭐️ Bonne année 2026 ⭐️</span>
+    </section>
 
     <main>
         <nav class="menu-niveaux">

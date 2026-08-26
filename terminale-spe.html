@@ -103,7 +103,7 @@ h3 {
 /* Carte chapitre */
 .carte {
     position: relative;
-    border: 1px solid blue;
+    border: 1px solid orange;
     border-radius: 10px;
     padding: 0.8rem 0.8rem 0.9rem;
     background: black;
@@ -112,16 +112,19 @@ h3 {
 .carte:hover {
     transform: translateY(0px);
     box-shadow:
-        0 0px 10px rgba(140, 114, 255, 0.577); /* ombre claire ajoutée */
+        0 0px 12px rgba(255, 166, 0, 0.58); /* ombre claire ajoutée */
 }
 .carte h3 {
     margin: 0 0 0.25rem 0;
     font-size: 1.15rem;
 }
-.carte:hover h3 {
-    color: yellow;
-    margin: 0 0 0.25rem 0;
-    font-size: 1.15rem;
+.carte {
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.carte.masquee {
+  opacity: 0;
+  transform: translateY(-12px);
+  pointer-events: none;
 }
 .meta {
     font-size: 0.92rem;
@@ -140,7 +143,7 @@ h3 {
     border: 1px solid rgba(255,255,255,0.22);
     border-radius: 999px;
     padding: 0.35rem 0.6rem;
-    font-size: 0.92rem;
+    font-size: 0.82rem;
     line-height: 1.2;
     text-decoration: none;
     color: white;
@@ -155,6 +158,86 @@ background: rgba(231, 210, 20, 0.063);
 }
 </style>
 
+<!-- Filtre des chapitres terminés -->
+<style>
+.filtre-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.5rem;
+  margin-bottom: -0.5rem;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.913);
+  user-select: none;
+}
+.filtre-container label {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+}
+/* Interrupteur effet "liquid glass" */
+.filtre-container input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 34.5px;
+  height: 16px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.25);
+  backdrop-filter: blur(6px) saturate(180%);
+  -webkit-backdrop-filter: blur(6px) saturate(180%);
+  position: relative;
+  cursor: pointer;
+  transition:
+    background 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+  box-shadow:
+    inset 0 0 6px rgba(255,255,255,0.1),
+    0 0 4px rgba(255,255,255,0.05);
+}
+/* La bille du toggle */
+.filtre-container input[type="checkbox"]::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.608);
+  box-shadow:
+    inset 0 0 4px rgba(255,255,255,0.4),
+    0 0 8px rgba(255,255,255,0.3);
+  transition:
+    transform 0.35s ease,
+    background 0.35s ease,
+    box-shadow 0.35s ease;
+}
+/* Survol du toggle */
+.filtre-container input[type="checkbox"]:hover {
+  border-color: rgba(255, 255, 255, 0.747);
+  box-shadow:
+    inset 0 0 8px rgba(255,255,255,0.1),
+    0 0 6px rgba(255,255,255,0.2);
+}
+/* État activé — effet “liquid glass” */
+.filtre-container input[type="checkbox"]:checked {
+  background: rgba(255, 166, 0, 0.35);
+  border-color: rgb(255, 194, 81);
+  box-shadow:
+    inset 0 0 10px rgba(254, 92, 92, 0.3),
+    0 0 12px rgba(254, 92, 92, 0.4);
+}
+.filtre-container input[type="checkbox"]:checked::before {
+  transform: translateX(18.7px);
+  background: rgba(255, 184, 54, 0.915);
+  box-shadow:
+    0 0 8px rgba(255, 166, 0, 0.351),
+    inset 0 0 4px rgba(255,255,255,0.3);
+}
+</style>
 <!-- Boutons -->
 <style>
 .btn-groupe {
@@ -211,7 +294,6 @@ background: rgba(231, 210, 20, 0.063);
   top: -0.35em; /* remonte l’exposant visuellement */
 }
 </style>
-
 <!-- Bannière hero -->
 <style>
 .hero {
@@ -225,64 +307,106 @@ background: rgba(231, 210, 20, 0.063);
   margin-bottom: 1em;
 }
 
+.hero-images {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 9.8rem; /* espace entre les deux images, modifiable */
+  height: 70%;
+  width: 100%;
+  transform: translate(-0%, 6%);
+}
+
 .hero-image {
-  height: 75%;
+  height: 100%;
   width: auto;
-  transform: translate(-0%, 4%);
-  object-fit: contain; /* pour que l’image remplisse bien le cadre */
-  opacity: 0.99; /* légère transparence pour lisibilité du texte */
-  filter: blur(0px) brightness(1); /* optionnel : effet “fondu” ou “assombri” */
+  object-fit: cover;
+  opacity: 1;
+  filter: brightness(1.07);
 }
 
 .hero-title {
-  position: absolute; /* le remet au-dessus de l’image */
+  position: absolute;
   z-index: 2;
   color: white;
   font-family: 'Computer Modern Serif', serif;
   font-size: 2.2em;
   font-weight: 700;
   text-align: center;
-  text-shadow: 0 0 8px rgba(0,0,0,0.6); /* lisibilité */
+  text-shadow: 0 0 8px rgba(0,0,0,0.6);
 }
+@media (max-width: 700px) {
+  .hero-title {
+    font-size: 1.8em; /* plus petit sur téléphone */
+  }
 
+  .hero-image {
+    height: 95%; /* réduit légèrement les images */
+  }
+
+  .hero-images {
+    gap: 9.2rem; /* réduit aussi l'espace entre les deux images */
+  }
+}
 </style>
+
 </head>
+
 
 <body>
     <header>
-        <div class="hero">
-            <img src="media/divers/icosaedre_noir.png" alt="" class="hero-image">
-            <h1 class="hero-title">Terminale Spé</h1>
-        </div>
-        <nav style="text-align: center;">
-        <div class="btn-groupe">
-            <a href="index.html" class="btn-retour btn-retour-plein">Accueil</a>
-            <a href="terminale.html" class="btn-retour btn-retour-contour">Filières de Term</a>
-        </div>
-        </nav>
-    </header>
+      <div class="hero">
+          <h1 class="hero-title">Terminale Spé</h1>
+          <div class="hero-images">
+          <img src="media/divers/ico_gauche.jpg" alt="" class="hero-image">
+          <img src="media/divers/ico_droit.JPG" alt="" class="hero-image">
+          </div>
+      </div>
+
+      <nav style="text-align: center;">
+          <div class="btn-groupe">
+          <a href="index.html" class="btn-retour btn-retour-plein">Accueil</a>
+          <a href="terminale.html" class="btn-retour btn-retour-contour">Filières de Term</a>
+          </div>
+      </nav>
+  </header>
+
+    <div class="filtre-container">
+    <label>
+        <input type="checkbox" id="filtreTermines">
+        Masquer les chapitres terminés
+    </label>
+    </div>
 
     <main class="container">
-        <p>Pas de contenu disponible cette année (encore jamais fait terminale spé, mais ça viendra tkt).</p>
-
         <!-- --------- Maths --------- -->
-        <!-- <div class="panneau">
-        <h1 class="panneau-titre">Mathématiques</h1>
+        <div class="panneau">
+        <!-- <h1 class="panneau-titre">Mathématiques</h1> -->
         <div class="panneau-contenu">
-            <article class="carte">
-                <h3>Chapitre 1 : ??</h3>
+            <article class="carte" data-statut="encours">
+                <h3>Chapitre 1 : Raisonnement par récurrence</h3>
                 <nav class="ressources" aria-label="Ressources chapitre 1">
-                    <a class="chip">📝 Cours (15/09)</a>
+                <a class="chip" href="media/terminale_spe/chap01/term_chap01_recurrence.pdf" target="_blank">📚 Cours</a>
+                <a class="chip" href="media/terminale_spe/chap01/term_chap01_exos.pdf" target="_blank">⭐ Exercices</a>
+                <a class="chip" href="media/terminale_spe/chap01/term_chap01_exos_correction.pdf" target="_blank">🌿 Exo. corrigés</a>
+                <a class="chip" href="media/terminale_spe/chap01/SommeEscalier.mp4" target="_blank">🎬 &nbsp; $\displaystyle\sum_{k=1}^n k=\dfrac{n(n+1)}{2}$</a>
                 </nav>
             </article>
+
+            <article class="carte" data-statut="encours">
+                <h3>Incoming...</h3>
+                <nav class="ressources" aria-label="Ressources chapitre 1">
+                </nav>
+            </article>
+
         </div>
-        </div> -->
+        </div>
 
         <!-- --------- Programmation ? --------- -->
     </main>
 
     <footer>
-        <p>&copy; Aymé Petit</p>
+        <p>Aymé Petit</p>
     </footer>
 
 <!-- SCRIPTS -->

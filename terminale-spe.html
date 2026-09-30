@@ -436,5 +436,100 @@ window.MathJax = {
 };
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-svg.js" defer></script>
+
+<!-- Filtre & animations des cartes -->
+<script>
+(() => {
+  const toggle = document.getElementById('filtreTermines');
+  const conteneur = document.querySelector('.panneau-contenu');
+
+  if (!toggle || !conteneur) return;
+
+  function rectMap(elements) {
+    const map = new Map();
+    elements.forEach(el => map.set(el, el.getBoundingClientRect()));
+    return map;
+  }
+
+  function cloneGhost(el) {
+    const r = el.getBoundingClientRect();
+    const ghost = el.cloneNode(true);
+    const s = ghost.style;
+    s.position = 'fixed';
+    s.left = r.left + 'px';
+    s.top = r.top + 'px';
+    s.width = r.width + 'px';
+    s.height = r.height + 'px';
+    s.margin = 0;
+    s.zIndex = 1000;
+    s.pointerEvents = 'none';
+    s.boxSizing = 'border-box';
+    document.body.appendChild(ghost);
+
+    ghost.animate(
+      [
+        { opacity: 1, transform: 'translateY(0)' },
+        { opacity: 0, transform: 'translateY(-10px)' }
+      ],
+      { duration: 350, easing: 'ease' }
+    ).addEventListener('finish', () => ghost.remove());
+  }
+
+  function animateSlide(elements, firstRects, duration = 350) {
+    elements.forEach(el => {
+      const first = firstRects.get(el);
+      if (!first) return;
+      const last = el.getBoundingClientRect();
+      const dx = first.left - last.left;
+      const dy = first.top - last.top;
+      if (Math.abs(dx) < 1 && Math.abs(dy) < 1) return;
+
+      el.animate(
+        [
+          { transform: `translate(${dx}px, ${dy}px)` },
+          { transform: 'translate(0, 0)' }
+        ],
+        { duration, easing: 'ease' }
+      );
+    });
+  }
+
+  toggle.addEventListener('change', () => {
+    const cartesTerminees = Array.from(document.querySelectorAll('.carte[data-statut="termine"]'));
+    const cartesEnCours  = Array.from(document.querySelectorAll('.carte[data-statut="encours"]'));
+    const panneauTitres  = Array.from(document.querySelectorAll('.panneau-titre'));
+
+    const hideFinished = toggle.checked; // checked = masquer les terminées
+
+    // 1) On mémorise les positions AVANT pour les cartes "encours" et les titres
+    const elementsAnimables = [...cartesEnCours, ...panneauTitres];
+    const firstRects = rectMap(elementsAnimables);
+
+    if (hideFinished) {
+      // 2a) Retire du flux les terminées (mais affiche un fantôme qui s'efface)
+      cartesTerminees.forEach(c => {
+        cloneGhost(c);
+        c.style.display = 'none';
+      });
+
+      // 3a) Quand la grille se réorganise, anime les "encours" + titres
+      requestAnimationFrame(() => {
+        animateSlide(elementsAnimables, firstRects);
+      });
+
+    } else {
+      // 2b) Réaffiche les terminées
+      cartesTerminees.forEach(c => {
+        c.style.display = '';
+      });
+
+      // 3b) Anime à nouveau la transition des "encours" + titres
+      requestAnimationFrame(() => {
+        animateSlide(elementsAnimables, firstRects);
+      });
+    }
+  });
+})();
+</script>
 </body>
 </html>

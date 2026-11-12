@@ -62,40 +62,50 @@ h3 {
     display: flex;
     align-items: center;
     gap: var(--gap);
-    margin-top: 1.2rem;
+    margin-top: 0rem;
     margin-bottom: 0.8rem;
-    font-family: 'Orbitron', sans-serif;
+    /* font-family: 'Orbitron', sans-serif; */
     font-size: 0.8rem;
     font-weight: 700;
     color: var(--rule-color);
-    text-shadow: 0 0.5px 0.5px rgba(113, 141, 241, 0.296); /* ombre du texte vers le bas */
+    text-shadow: 0 0.5px 0.5px rgba(241, 113, 113, 0.684); /* ombre du texte vers le bas */
 }
-.panneau-titre::before{
-    content:"";
-    display:block;
-    width:30px;
-    height:1px;
-    background: var(--rule-color);
-    box-shadow:
-        0 0 14px 2px rgba(140,114,255,.45),
-        0 4px 10px rgba(0,0,0,.6);      
-    flex:0 0 auto;
+.panneau-titre {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  margin: 1.2rem 1rem 1rem 1rem; /* même marge latérale que les cartes */
+  font-family: 'Computer Modern Serif', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.9);
+  text-align: center;
 }
-.panneau-titre::after{
-    content:"";
-    display:block;
-    height:1px;
-    background: var(--rule-color);
-    box-shadow:
-        0 0 14px 2px rgba(140,114,255,.45),
-        0 4px 10px rgba(0,0,0,.6);
-    flex:1 1 auto;
+
+/* Les petits traits avant et après le texte */
+.panneau-titre::before,
+.panneau-titre::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    rgba(255,255,255,0.15),
+    rgba(255,255,255,0.6),
+    rgba(255,255,255,0.15)
+  );
+  max-width: 150px; /* pour que le trait ne s’étende pas trop loin */
 }
+.panneau-titre span {
+  flex-shrink: 0;
+}
+
 .panneau-contenu {
     display: grid;
     grid-template-columns: 1fr;
     gap: 1rem;
-    margin: 0 1rem 0 1rem;
+    margin: 0 1rem 1.2rem 1rem;
 }
 @media (min-width: 760px) {
   .panneau-contenu { grid-template-columns: 1fr 1fr; }
@@ -416,6 +426,21 @@ background: rgba(231, 210, 20, 0.063);
         </div>
 
         <!-- --------- Programmation ? --------- -->
+        <div class="panneau">
+        <h1 class="panneau-titre">Autres ressources</h1>
+        <div class="panneau-contenu" style="display: block; margin: 1rem; text-align: center;">
+            <article class="carte" data-statut="encours">
+              <h3>Continuité pédagogique</h3>
+              <h3 style="font-style: italic; font-size: 0.8em; margin-top: -0.8em;">Pendant le mouvement lycéen</h3>
+                <nav class="ressources" aria-label="Ressources orientation 1">
+                    <a class="chip" href="media/terminale_spe/continuite_mobilisation_lyceenne/Cours.pdf" target="_blank">📚 Cours dérivation</a>
+                    <a class="chip" href="media/terminale_spe/continuite_mobilisation_lyceenne/Distanciel Exercice 1.pdf" target="_blank">⭐ Exos 1</a>
+                    <a class="chip" href="media/terminale_spe/continuite_mobilisation_lyceenne/Distanciel Exercice 2.pdf" target="_blank">⭐ Exos 2</a>
+                    <a class="chip" href="media/terminale_spe/continuite_mobilisation_lyceenne/Distanciel Exercice 3.pdf" target="_blank">⭐ Exos 3</a>
+                </nav>
+            </article>
+        </div>
+        </div>
     </main>
 
     <footer>
